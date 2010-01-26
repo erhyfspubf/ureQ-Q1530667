@@ -1,0 +1,112 @@
+<configure
+xmlns:z3c="http://namespaces.zope.org/z3c"
+xmlns:zope="http://namespaces.zope.org/zope"
+xmlns="http://namespaces.zope.org/browser"
+xmlns:jsonrpc="http://namespaces.zope.org/jsonrpc">	
+<!--              Question Forms    -->  
+<page
+  for="zope.app.container.interfaces.IAdding"
+  name="AddQuizQuestion.html"
+  class=".question.QuizQuestionAddForm"
+  permission="qreature.edit_quiz"
+  layer="qreature.skin.interfaces.IQreatureSkin"
+  />
+ <page
+  for="qreature.interfaces.IQuizQuestion"
+  name="edit.html"
+  class=".question.QuizQuestionEditForm"
+  permission="qreature.edit_quiz"
+  layer="qreature.skin.interfaces.IQreatureSkin"
+  />
+  
+<!--               Question Forms                     -->
+
+<!-- LeftSideBar-->
+<viewlet
+	name="Add question help"
+	for="zope.app.container.interfaces.IAdding"
+  	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+  	permission="qreature.edit_quiz"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	template="./templates/add_question_help.pt"
+	view = ".question.QuizQuestionAddForm"
+/>
+<viewlet
+	name="Edit question help"
+	for="qreature.interfaces.IQuizQuestion"
+  	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+  	permission="qreature.edit_quiz"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	template="./templates/add_question_help.pt"
+	view = ".question.QuizQuestionEditForm"
+/>
+
+<!-- Question For Constructor-->
+<viewlet
+	name="10QuestionForConstructorViewlet"
+	for="qreature.interfaces.IQuizQuestion"
+  	manager="qreature.browser.interfaces.IQreatureGeneralVM"
+  	permission="qreature.edit_quiz"
+	class=".question.QuestionForConstructor"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view="..quiz_constructor.constructor.QuestionsForConstructor"
+/>
+
+<viewlet
+	name="15QuestionIdForConstructorViewlet"
+	for="qreature.interfaces.IQuizQuestion"
+  	manager="qreature.browser.interfaces.IQreatureGeneralVM"
+  	permission="qreature.edit_quiz"
+	class=".question.QuestionIdForConstructor"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view="..quiz_constructor.constructor.QuestionsForConstructor"
+/>
+
+<viewlet
+	name="20QuestionBodyForConstructorViewlet"
+	for="qreature.interfaces.IQuizQuestion"
+  	manager="qreature.browser.interfaces.IQreatureGeneralVM"
+  	permission="qreature.edit_quiz"
+	class=".question.QuestionBodyForConstructor"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view="..quiz_constructor.constructor.QuestionsForConstructor"
+/>
+
+<viewlet
+	name="50AnswersForQuestionViewlet"
+	for="qreature.interfaces.IQuizQuestion"
+  	manager="qreature.browser.interfaces.IQreatureGeneralVM"
+  	permission="qreature.edit_quiz"
+	class=".question.AnswersForQuestion"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view="..quiz_constructor.constructor.QuestionsForConstructor"
+/>
+
+
+
+
+<viewlet
+	name="90AddingAnswer"
+	for="qreature.interfaces.IQuizQuestion"
+  	manager="qreature.browser.interfaces.IQreatureButtonsMenuVM"
+  	permission="qreature.edit_quiz"
+	template="../templates/picture_link.pt"
+	class="..links.AddingAnswer"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".question.AnswersForQuestion"
+/>
+
+<zope:resourceLibrary name="question">
+	<directory source="../question" include="flash_edit.js"/>
+</zope:resourceLibrary> 
+
+<jsonrpc:view
+    for="qreature.interfaces.IQuiz"
+    permission="qreature.edit_quiz"
+    methods="flashEditQuestion"
+    class=".async.Async"
+/>
+<!-- Question For Constructor -->
+
+
+</configure>

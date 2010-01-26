@@ -1,0 +1,111 @@
+<configure
+xmlns:z3c="http://namespaces.zope.org/z3c"
+xmlns:zope="http://namespaces.zope.org/zope"
+xmlns="http://namespaces.zope.org/browser">
+
+
+
+<!--              QuizResultForms     -->  
+<page
+  for="zope.app.container.interfaces.IAdding"
+  name="AddQuizResult.html"
+  class=".result.QuizResultAddForm"
+  permission="qreature.edit_quiz"
+  layer="qreature.skin.interfaces.IQreatureSkin"
+  />
+ <page
+  for="qreature.interfaces.IQuizResult"
+  name="edit.html"
+  class=".result.QuizResultEditForm"
+  permission="qreature.edit_quiz"
+  layer="qreature.skin.interfaces.IQreatureSkin"
+  />
+<!--              QuizResultForms     -->
+
+<!-- LeftSideBar-->
+<viewlet
+	name="Add result help"
+	for="zope.app.container.interfaces.IAdding"
+  	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+  	permission="qreature.edit_quiz"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	template="./templates/add_result_help.pt"
+	view = ".result.QuizResultAddForm"
+/>
+<viewlet
+	name="Edit result help"
+	for="qreature.interfaces.IQuizResult"
+  	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+  	permission="qreature.edit_quiz"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	template="./templates/add_result_help.pt"
+	view = ".result.QuizResultEditForm"
+/>
+
+
+
+
+
+
+<!--               Result Interval                     -->
+ <zope:class class=".result_interval.ResultIntervalForm">
+	<implements
+        interface=".interfaces.IResultIntervalForm"/>
+</zope:class>
+
+<zope:adapter
+  factory=".result_interval.interval_template"
+  for=".result_interval.ResultIntervalForm"
+  name="qreature.interval_form"
+/>
+<zope:adapter
+	factory=".result_interval.ResultInterval"
+/> <!-- 	provides=".interfaces.IResultInterval" -->
+
+<zope:adapter
+	factory=".result_interval.ResultIntervalDataManager"
+/>
+
+<zope:class class=".interfaces.Interval">
+	<implements
+        interface=".interfaces.IInterval
+		qreature.browser.interfaces.IQuizField"/>
+</zope:class>
+
+<zope:adapter
+	factory=".result_interval.IntervalDataConverter"
+/>
+  
+<!--               Result Interval                     -->
+
+
+
+<!-- Quiz Result (in the table) -->
+<viewlet
+	name="10ResultForConstructorViewlet"
+	for="qreature.interfaces.IQuizResult"
+  	manager="qreature.browser.interfaces.IQreatureGeneralVM"
+  	permission="qreature.edit_quiz"
+	class=".result.ResultForConstructor"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view="..quiz_constructor.constructor.ResultsForConstructor"
+/>
+<viewlet
+	name="40ResultInterval"
+	for="qreature.interfaces.IQuizResult"
+  	manager="qreature.browser.interfaces.IQreatureGeneralVM"
+  	permission="qreature.edit_quiz"
+	class=".result_interval.ResultIntervalForm"
+	layer="qreature.skin.interfaces.IScaleLayer"
+	view="..quiz_constructor.constructor.ResultsForConstructor"
+/>
+<viewlet
+	name="40ResultCollect"
+	for="qreature.interfaces.IQuizResult"
+  	manager="qreature.browser.interfaces.IQreatureGeneralVM"
+  	permission="qreature.edit_quiz"
+	class=".result.ResultCollect"
+	layer="qreature.skin.interfaces.ISlotLayer"
+	view="..quiz_constructor.constructor.ResultsForConstructor"
+/>
+</configure>

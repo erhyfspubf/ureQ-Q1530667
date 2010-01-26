@@ -1,0 +1,6 @@
+<div class="text_menu">
+		<tal:block define="link view/gimmeLink">
+			<a href="action.html" tal:attributes="href link/url"
+			 tal:content="structure link/title">Title</a>
+		</tal:block>
+</div>

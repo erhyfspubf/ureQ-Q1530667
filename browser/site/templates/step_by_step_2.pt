@@ -1,0 +1,34 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/@@standard_macros/page">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<body>
+	
+	<div metal:fill-slot="body">   
+		<h1>Пример создания сложного теста</h1>
+		<div tal:define="pictures view/gimmePicturesUrls">
+			После регистрации, вы переходите в свою папку. Чтобы создать тест нажмите
+			<div>
+				<img tal:attributes="src context/++resource++qreature_src/add.jpg"/>
+				<strong class="QreatureButtonTitle">Новый тест</strong>
+			</div>
+			<p>
+				Откроется форма добавления теста.
+				Это форма одинакова для всех объектов: тестов, вопросов, ответов и результатов.
+			</p>	
+			<div tal:replace="structure view/gimmeForm"/>
+			<p>
+				Укажите название для теста. Названия тестов и результатов <strong>показываются пользователю</strong>.
+				Названия вопросов и ответов не показываются. Они носят вспомогатльное значение.
+			</p>
+			<p>
+				Второе поле формы  - содержание. Заполняется с помощью визуального редактора.
+				Текст набирается обычным образом. Если вы хотите вставить картинку, нажмите кнопку 
+				<img tal:attributes="src context/++resource++qreature_src/add_image.gif"/>
+				В открывшемся диалоговом окне вставьте url изображения, и нажмите "
+			</p>
+		</div>
+	</div>
+	</body>
+</html>

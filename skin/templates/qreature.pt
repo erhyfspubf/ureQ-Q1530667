@@ -1,0 +1,64 @@
+<metal:block xmlns:metal="http://xml.zope.org/namespaces/metal"
+             metal:define-macro="page">
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	<html xmlns="http://www.w3.org/1999/xhtml"
+	      xmlns:tal="http://xml.zope.org/namespaces/tal">
+		<head>
+		  <title tal:on-error="string: Создание онлайн тестов. Добавь тест в свой блог или сайт." tal:content="context/title">Создание онлайн тестов</title>	
+		  <link rel="stylesheet" type="text/css" href="qreature.css"
+		        tal:attributes="href context/++resource++qreature_src/qreature.css" />
+		<link rel="icon" type="image/png" href="qreature_icon.png" tal:attributes="href context/++resource++qreature_src/qreature_icon.png"/>
+		  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		  <meta name='yandex-verification' content='530d11950908c785' />
+		  <meta name="verify-v1" content="a544//qNj/omVep9n+yn/vrSG2OQ8ivFDhKi0uvMRiY=" />		  
+<meta name="keywords" content="онлайн тесты, создание теста, создать тест, добавить тест, пройти тест, вопросы теста ,ответы теста ,результаты теста, лучшие тесты, прикольные тесты"/>
+          <meta name="description" content="На этом сайте можно создавать онлайн тесты. В тест можно добавить рисунки, музыку и видео. Код теста можно разместить на своем сайте или блоге."/>
+		</head>
+	
+		<body>
+			<div id="page">
+				<div id="hdr">
+					<div id="logo">
+						<img alt="logo" src="logo.png" tal:attributes="src context/++resource++qreature_src/logo.png"/>
+					</div>
+					<div id="site_menu">
+							<tal:providers replace="structure provider:qreature.MenuVM"/>
+					</div>
+					<div id="after_site_menu"></div>
+				</div>
+				<div id="after_site_header"></div>
+				
+				<div id="leftsidebar">
+					 <tal:providers replace="structure provider:qreature.LeftSideBarVM"/>
+				</div>
+				<div id="content">
+					<metal:slot define-slot="body">
+						        The body goes here
+				    </metal:slot>
+				</div>
+				<div id="rightsidebar">
+					<tal:providers replace="structure provider:qreature.RightSideBarVM"/>
+				</div>
+				
+				<div id="before_footer"></div>
+			</div>
+			<div id="ftr">
+				<div class="small">Дорогой друг. Если ты используешь IE6, скорее всего ты видишь перед собой какое-то непотребство. Прости нас за это.</div>
+				<div class="small">2008  "Строки с отступом" indented.lines at gmail.com</div>
+			</div>
+			
+			
+
+
+			<script type="text/javascript">
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+			</script>
+			<script type="text/javascript">
+			var pageTracker = _gat._getTracker("UA-5459963-3");
+			pageTracker._trackPageview();
+			</script>
+		</body>
+	</html>
+</metal:block>

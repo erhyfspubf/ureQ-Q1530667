@@ -1,0 +1,12 @@
+<div class="css_class" tal:attributes="class view/css_class">
+		<tal:block define="link view/gimmeLink">
+			<a href="action.html" tal:attributes="href link/url">
+			 	<span tal:replace="structure link/image">Image</span>
+
+				<span tal:condition="view/show_title">
+					<strong  class="QreatureButtonTitle" tal:content="link/title">Title</strong>
+				</span>
+
+			</a>
+		</tal:block>
+</div>

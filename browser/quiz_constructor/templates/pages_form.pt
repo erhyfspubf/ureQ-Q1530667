@@ -1,0 +1,20 @@
+<div class="RightButtons">
+	<form action="." tal:attributes="action request/URL">
+		<span tal:repeat="widget view/widgets/values">
+	        <strong tal:condition="widget/error"
+	           tal:content="structure widget/error/render"/>
+			<div>
+				<h1>
+					<label for="" tal:attributes="for widget/id" tal:content="widget/label" />
+		    	</h1>
+			</div>
+			<span class="IntervalFormInput">    
+				<input type="text" tal:replace="structure widget/render"/>
+			</span>
+			<span class="action" tal:repeat="action view/actions/values">
+				<input type="submit" tal:replace="structure action/render"/>
+			</span>
+		</span>
+
+	</form>
+</div>

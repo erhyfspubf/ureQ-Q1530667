@@ -1,0 +1,1 @@
+<div class="quiz_description" tal:content="structure context/body">Description</div>

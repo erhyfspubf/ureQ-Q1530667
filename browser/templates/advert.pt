@@ -1,0 +1,16 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/@@standard_macros/page">
+  <body>
+  	<div metal:fill-slot="body">
+		<div style="float:left;">
+			<tal:providers replace="structure provider:qreature.RightSideBarVM"/>
+		</div>
+		<div style="float:left;">
+			<tal:providers replace="structure provider:qreature.RightSideBarVM"/>
+		</div>
+		<div style="clear:both;"></div>
+	</div>
+	  </body>
+</html>

@@ -1,0 +1,1 @@
+<input type="submit" name="" value="" tal:attributes="name view/name; value view/value;" />

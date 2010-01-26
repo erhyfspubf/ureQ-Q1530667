@@ -1,0 +1,15 @@
+<h1 class="about">Текущая схема:</h1>
+<div tal:define="pictures view/gimmePicturesUrls"><img src="slots.jpg" tal:attributes="src pictures/slots"/>
+			<span class="QreatureButtonTitle">Слоты</span></div>
+<div>
+	<p>
+		Результаты независимы друг от друга. Пользователю будет показан тот результат, который наберет
+		больше всего влияний.
+	</p>
+	<p>
+		Можете добавлять несколько влияний в каждый ответ.
+	</p>
+	<p>
+		Влияния могут иметь разную степень: от 10% до 100%
+	</p>
+</div>

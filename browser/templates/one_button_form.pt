@@ -1,0 +1,11 @@
+<div class="picture_menu">
+    <form action="." tal:attributes="action request/URL">
+	    <span class="action" tal:repeat="action view/actions/values">
+	        <input type="submit" tal:replace="structure action/render"/>
+		</span>
+		<span class="row" tal:repeat="widget view/widgets/values">
+	        <input type="text" tal:replace="structure widget/render"/>
+		</span>
+		<em tal:condition="view/status" tal:content="structure view/status" />
+    </form>
+</div>

@@ -1,0 +1,68 @@
+<h1 class="about">Подсказки</h1>
+<div tal:define="pictures view/gimmePicturesUrls">
+		<div>
+			<a href="./help.html"><strong>Подробная справка</strong></a>
+		</div>
+		<p></p>
+		<div>
+			<img src="preview.jpg" tal:attributes="src pictures/preview"/>
+			<span  >Предосмотр</span>
+		</div>
+		
+		<div>
+			<img src="edit.jpg" tal:attributes="src pictures/edit"/>
+			<span  >Редактировать</span>
+		</div>
+		
+		<div>
+			<img src="edit.jpg" tal:attributes="src pictures/delete"/>
+			<span  >Удалить</span>
+		</div>
+		
+		<div>
+			<img src="edit.jpg" tal:attributes="src pictures/apply"/>
+			<span  >Изменить</span>
+		</div>
+		
+		<div>
+			<img src="delete.jpg" tal:attributes="src pictures/publish"/>
+			<span  >Опубликовать</span>
+		</div>
+		
+		<div>
+			<img src="scale.jpg" tal:attributes="src pictures/scale"/>
+			<span  >Схема Шкала</span>
+		</div>
+		
+		<div>
+			<img src="slots.jpg" tal:attributes="src pictures/slots"/>
+			<span  >Схема Слоты</span>
+		</div>
+		
+		<div>
+			<img src="question" tal:attributes="src pictures/question"/>
+			<span  >Вопрос</span>
+		</div>
+		
+		<div>
+			<img src="answer" tal:attributes="src pictures/answer"/>
+			<span  >Ответ</span>
+		</div>
+		
+		
+		<div>
+			<img src="value" tal:attributes="src pictures/value"/>
+			<span  >Баллы</span>
+		</div>
+		
+		<div>
+			<img src="depends.jpg" tal:attributes="src pictures/depends"/>
+			<span  >Влияние</span>
+		</div>
+		
+		<div>
+			<img src="preview.jpg" tal:attributes="src pictures/lead"/>
+			<span  >Перемещения</span>
+		</div>
+		<p></p>
+</div>

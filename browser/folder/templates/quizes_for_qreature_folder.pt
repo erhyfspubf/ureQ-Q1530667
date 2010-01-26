@@ -1,0 +1,11 @@
+<h2> Тесты:</h2>
+<div tal:condition="not:view/nothing">
+
+	<div class="quiz_in_folder" tal:repeat="quiz view/gimmeViewlets">
+		<tal:block content="structure quiz/render">test</tal:block>
+	</div>
+				
+</div>
+<div tal:condition="view/nothing">
+	<em>не создано ни одного теста</em>
+</div>

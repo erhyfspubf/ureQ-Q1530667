@@ -1,0 +1,4 @@
+<div class="css_class" tal:attributes="class view/css_class">
+	<img src="icon.jpg" tal:attributes="src view/gimmeIcon"/>
+	<strong tal:content="context/title">title here</strong>
+</div>

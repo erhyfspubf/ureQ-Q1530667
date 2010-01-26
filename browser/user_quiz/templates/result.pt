@@ -1,0 +1,15 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/@@standard_macros/page">
+	<body>
+		<div metal:fill-slot="body">   
+				<h1>Результат</h1>
+				<div tal:define="result view/result">
+					<tal:block replace="structure result"/>
+				</div>
+				<p></p>
+				<tal:providers replace="structure provider:commentable.CommentableLinksVM"/>
+		</div>
+	</body>
+</html>

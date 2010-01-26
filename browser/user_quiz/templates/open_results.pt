@@ -1,0 +1,5 @@
+<h1>Другие результаты:</h1>
+<div tal:repeat="result view/gimmeResults">
+	<a href="result/url" tal:content="result/title" tal:attributes="href result/url">result title</a>
+</div>
+

@@ -1,0 +1,178 @@
+from zope.component import getUtility
+from zope.schema.vocabulary import SimpleVocabulary
+#from zope.app.intid.interfaces import IIntIds
+from qreature.interfaces import IQreatureIntIds
+from zope.app.component.hooks import getSite
+from zope.app.authentication.session import SessionCredentialsPlugin
+from qreature.interfaces import IQuizQuestion,IQreatureUtility,IQuizResult,IQuizAnswer
+from qreature.interfaces import ICacheCleaner,IRamDirty
+from zope.interface import implements
+from zope.app.cache.ram import RAMCache
+from zope.interface import noLongerProvides
+from zope.security.proxy import removeSecurityProxy
+#from zope.app.intid import IntIds   
+
+
+class JustRegisteredCredentialPlugin(SessionCredentialsPlugin):
+    loginfield = 'qreature_form.widgets.login'
+    passwordfield = 'qreature_form.widgets.password'
+
+
+
+def percentage(context):
+    """ """
+    perc = [a for a in xrange(10,110,10)]
+    perc.reverse()
+    return SimpleVocabulary.fromValues(perc)
+
+
+#here i have a list of the lists
+#see python cookbook recipe 4.6
+def list_or_tuple(x):
+        return isinstance(x, (list, tuple))
+def flatten(sequence, to_expand=list_or_tuple):
+    for item in sequence:
+        if to_expand(item):
+            for subitem in flatten(item, to_expand):
+                yield subitem
+        else:
+            yield item
+
+
+
+def depends_voc(context):
+    site = getSite()
+    int_ids = getUtility(IQreatureIntIds, context = site)
+    results = [r for r in site.values() if IQuizResult.providedBy(r)]
+    result_id_map = {}
+    for r in results:
+        result_id_map.update({int_ids.getId(r):r})
+    term_list = []
+    
+    for key,result in result_id_map.items():
+        title=result.title
+        term = SimpleVocabulary.createTerm(key, key, title)
+        term_list.append(term)
+    term_list.sort(key=lambda x: x.title)
+    return SimpleVocabulary(term_list)
+
+
+def leads_voc(context):
+    site = getSite()
+    int_ids = getUtility(IQreatureIntIds, context = site)
+    questions = [q for q in site.values() if IQuizQuestion.providedBy(q)]
+    questions_id_map = {}
+    for q in questions:
+        questions_id_map.update({int_ids.getId(q):q})
+    term_list = []
+    for key,question in questions_id_map.items():
+        title=question.title
+        term = SimpleVocabulary.createTerm(key, key, title)
+        term_list.append(term)
+    term_list.sort(key=lambda x: x.title)
+    return SimpleVocabulary(term_list)
+
+def answers_voc(context):
+    site = getSite()
+    answers = [[a for a in q.values() if IQuizAnswer.providedBy(a)] for q in site.values() if IQuizQuestion.providedBy(q)]
+    flatten = getUtility(IQreatureUtility, name="Flatten")
+    answers = flatten(answers)
+    int_ids = getUtility(IQreatureIntIds, context = site)
+    term_list = []
+    for answer in answers:
+        id = int_ids.getId(answer)
+        title = answer.body
+        term = SimpleVocabulary.createTerm(answer, id, title)
+        term_list.append(term)
+    return SimpleVocabulary(term_list)
+
+
+from BTrees.IIBTree import IIBTree
+from cPickle import dumps
+
+class CacheCleaner(RAMCache):
+    """ see interfaces"""
+    implements(ICacheCleaner)
+    int_ids = None
+
+    
+    def init(self):
+        int_ids = getUtility(IQreatureIntIds, context=self)
+        self.int_ids = int_ids
+        caches = IIBTree()
+        self.set(caches, 'caches')
+
+    
+    def cleanCaches(self):
+        caches = self.query('caches')
+        if caches is None:
+            self.init()
+            return
+        for cache in caches.keys():
+            quiz = self.int_ids.queryObject(cache)
+            if quiz is not None:
+                quiz_sm = quiz.getSiteManager()
+                vm_cache = quiz_sm['VMCache']
+                vm_cache.invalidateAll()
+                noLongerProvides(removeSecurityProxy(quiz),IRamDirty)
+        self.init()
+            
+    def addCache(self,quiz):
+        caches = self.query('caches')
+        #may be server was restarted
+        if caches is None:
+            self.init()
+            caches = self.query('caches')
+        quiz_id = self.int_ids.getId(quiz)
+        caches[quiz_id]=quiz_id
+        self.set(caches, 'caches')
+    
+    def removeCache(self, quiz):
+        caches = self.query('caches')
+        if caches is None:
+            self.init()
+            return
+        quiz_id = self.int_ids.getId(quiz)
+        if caches.has_key(quiz_id):
+            caches.__delitem__(quiz_id)
+            noLongerProvides(removeSecurityProxy(quiz),IRamDirty)
+
+from zc.async.tretiy3 import IHourPingEvent
+from zope.component import adapter
+
+@adapter(IHourPingEvent)
+def clean_caches(event):
+    cc = getUtility(ICacheCleaner, context = event.context)
+    cc.cleanCaches()
+
+from zope.app.catalog.catalog import Catalog,ResultSet
+from qreature.interfaces import IQreatureCatalog, IQreatureIntIds
+from zope.traversing.interfaces import IPhysicallyLocatable
+from zope.location import location
+
+class QreatureCatalog(Catalog):
+    implements(IQreatureCatalog)
+    
+    def _visitSublocations(self) :
+        """Restricts the access to the objects that live within
+        the nearest site if the catalog itself is locatable.
+        """
+        locatable = IPhysicallyLocatable(self, None)
+        if locatable is not None :
+            uidutil = getUtility(IQreatureIntIds, context=self)
+            site = locatable.getNearestSite()
+            for uid in uidutil:
+                obj = uidutil.getObject(uid)
+                if location.inside(obj, site) :
+                    yield uid, obj
+        else :
+            uidutil = getUtility(IQreatureIntIds)
+            for uid in uidutil:
+                yield uid, uidutil.getObject(uid)
+    
+    def searchResults(self, **searchterms):
+        results = self.apply(searchterms)
+        if results is not None:
+            uidutil = getUtility(IQreatureIntIds)
+            results = ResultSet(results, uidutil)
+        return results

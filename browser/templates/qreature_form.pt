@@ -1,0 +1,35 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/@@standard_macros/page">
+  <body>
+  	<div metal:fill-slot="body"> 
+	    <h1 tal:content="view/form_name">Название формы</h1>
+		
+		<tal:block replace="structure provider:qreature.QreatureButtonsMenuVM"/>
+		<p></p>
+		<em tal:condition="view/status" tal:content="view/status" />
+	    <ul tal:condition="view/widgets/errors">
+	      <li tal:repeat="error view/widgets/errors">
+	        <tal:block condition="error/widget">
+			</tal:block>
+	        <tal:block replace="structure error/render" />
+	      </li>
+	    </ul>
+		<form action="." tal:attributes="action request/URL" class="QreatureForm">
+	      <div class="row" tal:repeat="widget view/widgets/values">
+	        <strong tal:condition="widget/error"
+	           tal:content="structure widget/error/render"
+	        /><label for=""
+	               tal:attributes="for widget/id"
+	               tal:content="widget/label" />
+	        <input type="text" tal:replace="structure widget/render"
+	      /></div>
+	      <tal:providers replace="structure provider:captcha.CaptchaVM"/>
+		  <div class="action" tal:repeat="action view/actions/values">
+	        <input type="submit" tal:replace="structure action/render"
+	      /><strong class="QreatureButtonTitle" tal:content="view/button_name">Добавить что-то</strong></div>
+	    </form>
+	</div>
+  </body>
+</html>

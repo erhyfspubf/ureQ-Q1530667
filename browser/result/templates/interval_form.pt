@@ -1,0 +1,16 @@
+<form action="." tal:attributes="action request/URL" class="IntervalForm">
+	<div class="small">Баллы:</div>
+	<div class="small">от:<span tal:content=view/gimmeMin>min</span></div>
+	<div class="small">до:<span tal:content=view/gimmeMax>max</span></div>
+	<span tal:repeat="widget view/widgets/values">
+        <strong tal:condition="widget/error"
+           tal:content="structure widget/error/render"/>
+		<label for="" tal:attributes="for widget/id" tal:content="widget/label" />
+    	<span class="IntervalFormInput">    
+			<input type="text" tal:replace="structure widget/render"/>
+		</span>
+	</span>
+	<span class="action" tal:repeat="action view/actions/values">
+		<input type="submit" tal:replace="structure action/render"/>
+	</span>
+</form>

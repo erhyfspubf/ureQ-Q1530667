@@ -1,0 +1,6 @@
+<div id="news">
+	<tal:block replace="structure view/content"/>
+	<div>
+		<em tal:content="view/created">date created</i>
+	</div>
+</div>

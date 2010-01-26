@@ -1,0 +1,16 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/@@standard_macros/page">
+	<body>
+	<div metal:fill-slot="body">   
+		<div>этот адрес не существует</div>
+		<tal:block condition="view/notChecked">
+			<div>Объект не проверен</div>
+		</tal:block>
+		<tal:block condition="view/notPublished">
+			<div>Объект не опубликован</div>
+		</tal:block>
+	</div>
+	</body>
+</html>

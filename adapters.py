@@ -1,0 +1,186 @@
+# -*- coding: cp1251 -*-
+from datetime import datetime
+from qreature.interfaces import IQreatureSite, IQreatureFolder,\
+         IAnswerLeads,IQreatureNews,IAnswerValue,\
+             IQuiz,IQuizContainer
+from zope.app.container.contained import NameChooser
+from zope.component import adapts,getMultiAdapter, adapter, getUtility, getAllUtilitiesRegisteredFor
+from zope.exceptions.interfaces import UserError
+from zope.index.text.interfaces import ISearchableText
+from zope.interface import implements
+from zope.security.proxy import removeSecurityProxy
+from qreature.interfaces import IQuizAnswer, IQuizQuestion,IQuizResult
+from feedable.interfaces import IChanelData, IItemData, IFeedableSequencer
+from zope.dublincore.interfaces import IZopeDublinCore 
+from zope.traversing.browser import absoluteURL
+from lovely.tag.tagging import Tagging, UserTagging
+from zope.cachedescriptors.property import Lazy
+from qreature.interfaces import IQreatureTaggable,IQreatureIntIds
+from lovely.tag.interfaces import ITaggingEngine
+from qreature.interfaces import IQreatureIntIdRemovedEvent
+        
+class QuizSearchableText(object):
+    """ Generic adapter for searching orders by phone number"""
+    implements(ISearchableText)
+    adapts(IQuiz)
+
+    def __init__(self, context):
+        self.context = context
+
+    def getSearchableText(self):
+        return self.context.body
+
+
+class QreatureSiteNameChooser(NameChooser):
+    adapts(IQreatureSite)
+    def __init__(self, context):
+
+        context = removeSecurityProxy(context)
+        super(QreatureSiteNameChooser, self).__init__(context)
+        
+    def chooseName(self, name, ob):
+        if IQreatureFolder.providedBy(ob):
+            name = ob.login
+            self.checkName(name, ob)
+        if IQreatureNews.providedBy(ob):
+            name = ob.title
+            self.checkName(name, ob)
+        return name
+    
+    def checkName(self, name, ob):
+        if IQreatureFolder.providedBy(ob):
+            if name != ob.login:
+                raise UserError(u"Given name and user login do not match!")
+        if IQreatureNews.providedBy(ob):
+            if name != ob.title:
+                raise UserError(u"Given name and news title do not match!")
+        return super(QreatureSiteNameChooser, self).checkName(name, ob)
+    
+
+            
+
+
+class CommentableNameChooser(NameChooser):
+    adapts(IQreatureSite)
+    def __init__(self, context):
+        context = removeSecurityProxy(context)
+        super(CommentableNameChooser, self).__init__(context)
+        
+    def chooseName(self, name, ob):
+        name = super(CommentableNameChooser, self).checkName(name, ob)
+        name = self.context.title + name
+        return name
+    
+    def checkName(self, name, ob):
+        return super(CommentableNameChooser, self).checkName(name, ob)
+
+LEAD_KEY = 'lead'
+VALUE_KEY = 'value'  
+
+interface_name_map = {IQuizAnswer:u'answer',IQuizQuestion:u'question',IQuizResult:u'result'}
+
+class QuizContainerNameChooser(NameChooser):
+    
+    adapts(IQuizContainer)
+    
+    def __init__(self, context):
+        context = removeSecurityProxy(context)
+        super(QuizContainerNameChooser, self).__init__(context)
+        
+        
+    def chooseName(self, name, ob):
+        if IQuizContainer.providedBy(ob):
+            n = ob.title
+            for i,name in interface_name_map.items():
+                if i.providedBy(ob):
+                    n=name + u'-' + n
+        elif IAnswerLeads.providedBy(ob):
+            n = LEAD_KEY
+        elif IAnswerValue.providedBy(ob):
+            n = VALUE_KEY
+        else:
+            n = super(QuizContainerNameChooser, self).chooseName(name, ob)
+        self.checkName(n, ob)
+        return n
+    
+
+
+
+class QreatureSiteFeedableSequencer(object):
+    implements(IFeedableSequencer)
+    adapts(IQreatureSite)
+    def __init__(self, site):
+        self.site = site
+    def sequence(self):
+        newses = [news for news in self.site.values() if IQreatureNews.providedBy(news)]
+        newses.sort(key=lambda x: IZopeDublinCore(x).created)
+        newses.reverse()
+        return newses[0:10]
+
+class QreatureSiteChanelData(object):
+    implements(IChanelData)
+    adapts(IQreatureSite)
+    def __init__(self,site):
+        self.title=u'Qreature'
+        self.description=u'Сервис онлайн тестов'
+        self.link = 'http://www.qreature.ru'
+        self.language=u'ru'
+        
+class QreatureNewsItemData(object):
+    implements(IItemData)
+    adapts(IQreatureNews)
+    def __init__(self, news):
+        self.title = news.title
+        self.description = news.body
+        self.pubDate = IZopeDublinCore(news).created
+        self.link = 'http://localhost:8080/++skin++Qreature/qreature/' + news.title + '/thread.html'
+        
+        
+        
+
+
+
+
+
+class QreatureTagging(Tagging):
+    engineName = 'QuizTaggingEngine'
+    adapts(IQreatureTaggable)
+    @Lazy
+    def docId(self):
+        #the taggable is quiz. the quiz is registered in site int_ids.
+        #so the context to look up int_ids is folder. for sure :)
+        ids = getUtility(IQreatureIntIds,context=self.context.__parent__)
+        id = ids.queryId(self.context)
+        if id is None:
+            ids.register(self.context)
+            id = ids.getId(self.context)
+        return id
+
+class QreatureUserTagging(UserTagging):
+    adapts(IQreatureTaggable)
+    @Lazy
+    def docId(self):
+        #the taggable is quiz. the quiz is registered in site int_ids.
+        #so the context to look up int_ids is folder. for sure :)
+        ids = getUtility(IQreatureIntIds,context=self.context.__parent__)
+        id = ids.queryId(self.context)
+        if id is None:
+            ids.register(self.context)
+            id = ids.getId(self.context)
+        return id
+    
+@adapter(IQreatureIntIdRemovedEvent)
+def removeItemSubscriber(event):
+    
+    """A subscriber to IntIdRemovedEvent which removes an item from
+    the tagging engine.
+    OVVERRIDING OF NATIVE EVENT, CAUSE MY INTIDS IS TWISTED :("""
+    ob = event.object
+    if not IQreatureTaggable.providedBy(ob):
+        return
+    for engine in getAllUtilitiesRegisteredFor(
+        ITaggingEngine, context=ob):
+        uid = getUtility(IQreatureIntIds, context=engine).queryId(ob)
+        if uid is not None:
+            engine.delete(uid)
+    

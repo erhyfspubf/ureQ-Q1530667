@@ -1,0 +1,301 @@
+<configure
+xmlns:z3c="http://namespaces.zope.org/z3c"
+xmlns:zope="http://namespaces.zope.org/zope"
+xmlns="http://namespaces.zope.org/browser">
+
+
+<!--              QreatureSite     -->  
+<page
+  name="main.html"
+  for="qreature.interfaces.IQreatureSite"
+  class=".site.Site"
+  permission="zope.View"
+  layer="qreature.skin.interfaces.IQreatureSkin"
+  />
+<defaultView
+  name="@@index.html"
+  for="qreature.interfaces.IQreatureSite"
+  layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+
+<page
+  name="@@index.html"
+  for="qreature.interfaces.IQreatureSite"
+  class=".site.IndexView"
+  permission="zope.View"
+  layer="qreature.skin.interfaces.IQreatureSkin"
+  />
+               
+
+
+
+<!-- QuizMenuVM provider -->
+<page
+	 name="MyQreatures.html"
+	 for="*"
+	 class=".site.MyQreatures"
+	 permission="qreature.idle_perm"
+	 layer="qreature.skin.interfaces.IQreatureSkin"
+	 attribute="myQreatures"
+/>
+
+
+<viewlet
+	name="20Register"
+	for="qreature.interfaces.IQreatureSite"
+  	manager="qreature.skin.interfaces.IQreatureMenuVM"
+  	permission="zope.View"
+	template="../templates/link.pt"
+	class="..links.Register"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+
+<viewlet
+	name="92Admin"
+	for="qreature.interfaces.IQreatureSite"
+  	manager="qreature.skin.interfaces.IQreatureMenuVM"
+  	permission="zope.ManageContent"
+	template="../templates/link.pt"
+	class="..links.Admin"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+<!-- links for menu -->
+
+
+
+
+<!-- News -->
+
+
+<viewlet
+	name="News"
+	for="qreature.interfaces.IQreatureNews"
+  	manager="qreature.browser.interfaces.IQreatureSiteVM"
+  	permission="zope.View"
+	class=".site.News"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	template="./templates/news.pt"
+/>
+
+<!-- Commentable -->
+
+<viewlet
+	name="NewsCommentableView"
+  	for="qreature.interfaces.IQreatureNews"
+	manager="commentable.interfaces.ICommentableViewVM"
+  	permission="zope.View"
+	class=".site.NewsCommentableView"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	template="./templates/NewsAsCommentable.pt"
+/>
+
+<viewlet
+	 name="20link_to_thread"
+	 for="qreature.interfaces.IQreatureNews"
+	 manager="commentable.interfaces.ICommentableLinksVM"
+	 permission="zope.View"
+	 class="..links.Thread"
+	 layer="qreature.skin.interfaces.IQreatureSkin"
+	 view=".site.News"
+/>
+
+
+
+<viewlet 
+	 name="30comment_counter"
+	 for="qreature.interfaces.IQreatureNews"
+	 manager="commentable.interfaces.ICommentableLinksVM"
+	 permission="zope.View"
+	 class=".site.CommentCounter"
+	 layer="qreature.skin.interfaces.IQreatureSkin"
+	 template="./templates/comment_counter.pt"
+	 view=".site.News"
+/>
+
+<!-- Commentable -->
+
+
+
+
+<!-- News -->
+<page
+  name="AddQreatureNews.html"
+  for="zope.app.container.interfaces.IAdding"
+  class=".site.QreatureNewsAddForm"
+  permission="zope.ManageContent"
+  layer="qreature.skin.interfaces.IQreatureSkin"
+ />
+ 
+<page
+  name="admin.html"
+  for="qreature.interfaces.IQreatureSite"
+  class=".site.Admin"
+  permission="zope.ManageContent"
+  layer="qreature.skin.interfaces.IQreatureSkin"
+ />
+
+<page
+  name="comments.html"
+  for="qreature.interfaces.IQreatureSite"
+  class=".site.Comments"
+  permission="zope.ManageContent"
+  layer="qreature.skin.interfaces.IQreatureSkin"
+ />
+
+<page
+  name="users.html"
+  for="qreature.interfaces.IQreatureSite"
+  class=".site.Users"
+  permission="zope.ManageContent"
+  layer="qreature.skin.interfaces.IQreatureSkin"
+ />
+
+<page
+  name="quizes.html"
+  for="qreature.interfaces.IQreatureSite"
+  class=".site.Quizes"
+  permission="zope.View"
+  layer="qreature.skin.interfaces.IQreatureSkin"
+ />
+
+
+
+<!-- Button menu for Quiz -->
+<viewlet
+	name="30Actions"
+	for="qreature.interfaces.IQreatureComment"
+  	manager="qreature.browser.interfaces.IQreatureSiteVM"
+  	permission="zope.ManageContent"
+	class="..qreature_views.QreatureActions"
+	template="../templates/actions.pt"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+
+<viewlet
+	name="20Edit"
+	for="qreature.interfaces.IQreatureComment"
+  	manager="qreature.browser.interfaces.IQreatureButtonsMenuVM"
+  	permission="zope.ManageContent"
+	class="..links.Edit"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+<viewlet
+	name="60DeleteButton"
+	for="qreature.interfaces.IQreatureComment"
+  	manager="qreature.browser.interfaces.IQreatureButtonsMenuVM"
+  	permission="zope.ManageContent"
+	class=".site.DeleteCommentButton"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+
+<addMenuItem
+      title="Cache Cleaner"
+      class="...utilities.CacheCleaner"
+      permission="zope.ManageServices"
+/>
+
+<viewlet
+	name="10CleanCache"
+	for="qreature.interfaces.IQreatureSite"
+  	manager="qreature.browser.interfaces.IQreatureButtonsMenuVM"
+  	permission="zope.ManageContent"
+	class=".site.CleanCacheButton"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".site.Admin"
+/>
+<viewlet
+	name="20BeforeSwitchOff"
+	for="qreature.interfaces.IQreatureSite"
+  	manager="qreature.browser.interfaces.IQreatureButtonsMenuVM"
+  	permission="zope.ManageContent"
+	class=".site.BeforeSwitchOffButton"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".site.Admin"
+/>
+
+<viewlet
+	name="10 About"
+  	for="qreature.interfaces.IQreatureSite"
+	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+  	permission="zope.View"
+	class="..qreature_views.QreatureAbouted"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+<viewlet
+	name="10 About"
+  	for="qreature.interfaces.IQreatureNews"
+	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+  	permission="zope.View"
+	class="..qreature_views.QreatureAbouted"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+
+<page
+	name="help.html"
+	for="qreature.interfaces.IQreatureSite"
+	class="..quiz_constructor.constructor.Help"
+	permission="zope.View"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+
+<viewlet
+	name="20 SomeHelp"
+  	for="qreature.interfaces.IQreatureSite"
+	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+  	permission="zope.View"
+	template="./templates/some_help.pt"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view = ".interfaces.ISiteView"
+/>
+
+<viewlet
+	name="30 TagCloud"
+  	for="qreature.interfaces.IQreatureSite"
+	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+  	permission="zope.View"
+	class="..tagging.TagCloud"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+
+<viewlet
+	name="10RSSButton"
+	for="qreature.interfaces.IQreatureSite"
+  	manager="qreature.browser.interfaces.IQreatureButtonsMenuVM"
+  	permission="zope.View"
+	class="..links.RSS"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view = ".interfaces.ISiteView"
+/>
+
+<page
+	name="sitemap.xml"
+	for="qreature.interfaces.IQreatureSite"
+	class=".site.DynamicSiteMap"
+	permission="zope.View"
+	template="./templates/sitemap.xml"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+
+<page
+	for="qreature.interfaces.IQreatureSite"
+	name="pagable"
+	class="pagable.browser.Pagable"
+	template="../../../pagable/pagable.pt"
+	permission="zope.View"
+/>
+<page
+	for="qreature.interfaces.IQreatureNews"
+	name="pagable"
+	class="pagable.browser.Pagable"
+	template="../../../pagable/pagable.pt"
+	permission="zope.View"
+/>
+
+<page
+	for="qreature.interfaces.IQreatureSite"
+	name="vkontakte_api"
+	class=".vkontakte.VkontakteApi"
+	permission="zope.View"
+/>
+
+</configure>

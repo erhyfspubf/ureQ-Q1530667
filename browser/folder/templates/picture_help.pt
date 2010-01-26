@@ -1,0 +1,36 @@
+<h1 class="about">Подсказки</h1>
+<div tal:define="pictures view/gimmePicturesUrls">
+		
+		<div>
+			<img src="qreature_icon.jpg" tal:attributes="src pictures/qreature_icon"/>
+			<span>Конструктор тестов</span>
+		</div>
+		
+		<div>
+			<img src="preview.jpg" tal:attributes="src pictures/preview"/>
+			<span  >Предосмотр</span>
+		</div>
+		
+		<div>
+			<img src="edit.jpg" tal:attributes="src pictures/edit"/>
+			<span  >Редактировать</span>
+		</div>
+		
+		<div>
+			<img src="edit.jpg" tal:attributes="src pictures/delete"/>
+			<span  >Удалить</span>
+		</div>
+		
+		<div>
+			<img src="check.jpg" tal:attributes="src pictures/check"/>
+			<span  >Проверить</span>
+		</div>
+		
+		<div>
+			<img src="delete.jpg" tal:attributes="src pictures/publish"/>
+			<span  >Опубликовать</span>
+		</div>
+		
+
+		<p></p>
+</div>

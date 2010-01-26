@@ -1,0 +1,232 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/@@standard_macros/page">
+	<body>
+		<div metal:fill-slot="body">   
+			<h1 class="about">
+				Справка по xml
+			</h1>
+			<p>
+				На самом деле все просто. Особенно если вы хоть немного знакомы с языками разметки.
+				Каждый объект, а именно: сам тест, результаты, вопросы, ответы, баллы,
+				влияния и перемещения обозначаются своим тегом.
+			</p>
+			<div tal:define="pictures view/gimmePicturesUrls">
+				<div><img tal:attributes="src pictures/qreature_icon" alt="тест"/>
+				     <strong>тест:  &lt;quiz&gt; &lt;/quiz&gt;</strong></div>
+					 
+				<div><img tal:attributes="src pictures/scale" alt="результат теста"/>
+					<strong>результат:  &lt;result&gt; &lt;/result&gt;</strong></div>
+					
+				<div><img tal:attributes="src pictures/question" alt="вопрос теста"/>
+					<strong>вопрос:  &lt;question&gt; &lt;/question&gt;</strong></div>
+					
+				<div><img tal:attributes="src pictures/answer" alt="ответ теста"/>
+					<strong>ответ:  &lt;answer&gt; &lt;/answer&gt;</strong></div>
+					
+				<div><img tal:attributes="src pictures/value" alt="баллы теста"/>
+					<strong>баллы:  &lt;value&gt; &lt;/value&gt;</strong></div>
+					
+				<div><img tal:attributes="src pictures/depends" alt="влияние теста"/>
+					<strong>влияние:  &lt;depend&gt;&lt;/depend&gt;</strong></div>
+					
+				<div><img tal:attributes="src pictures/lead" alt="перемещение теста"/>
+					<strong>перемещение:  &lt;lead&gt; &lt;/lead&gt;</strong></div>
+			</div>
+			<h2>Общие для всех тегов правила</h2>
+			<p>
+				Тегов всегда 2. Т.е. они идут парами: один - 'открывающий', например:<strong>&lt;quiz&gt;</strong>,
+				второй - 'закрывающий': <strong>&lt;/quiz&gt;</strong>
+				Внутри тега (между открывающим и закрывающим тегом), помещаются другие теги.
+				Т.е. одни теги, служат контейнерами для других.
+				В нашем случае, все объекты теста находятся 'внутри теста'. Т.е. тест содержит в себе
+				результаты и вопросы.
+			</p>
+			   <div><strong>&lt;quiz&gt;</strong></div>
+					<div class="indent1"><strong>&lt;result&gt;</strong> ... <strong>&lt;/result&gt;</strong></div>
+					<div class="indent1"><strong>&lt;question&gt;</strong>...<strong>&lt;/question&gt;</strong></div>
+				<div><strong>&lt;/quiz&gt;</strong></div>
+			
+			<p>
+				В свою очередь вопросы содержат в себе ответы. А ответы - баллы, влияния и перемещения:
+			</p>
+			   <div><strong><strong>&lt;quiz&gt;</strong></div>
+					<div class="indent1"><strong>&lt;result&gt;</strong> ... <strong>&lt;/result&gt;</strong></div>
+					<div class="indent1"><strong>&lt;question&gt;</strong></div>
+						<div class="indent2"><strong>&lt;answer&gt;</strong></div>
+							<div class="indent3"><strong>&lt;value&gt;</strong>...
+							<strong>&lt;/value&gt;</strong></div>
+							<div class="indent3"><strong>&lt;lead&gt;</strong>...
+							<strong>&lt;/lead&gt;</strong></div>
+						<div class="indent2"><strong>&lt;/answer&gt;</strong></div>
+					<div class="indent1"><strong>&lt;/question&gt;</strong></div>
+				<div><strong>&lt;/quiz&gt;</strong></div>
+			<p>
+			   Иерархия и последовательность критична для тегов. Это относится не только к
+			   разметке тестов, а вообще ко всем языкам разметки, с которыми вы будете сталкиваться по жизни снова и снова.
+			   Например, вы написали открывающий тег: 
+			   <strong>&lt;question&gt;</strong>. Это значит, что вам обязательно нужно будет 
+			   закрыть его, иначе ни одна система не поймет вашу запись. Не обязательно закрывать его сразу же.
+			   Внутри этого тега, вы можете открыть еще сколько угодно тегов, например:
+			   <strong>&lt;question&gt;</strong><strong>&lt;answer&gt;</strong>. Автоматически, это означает,
+			   что придется завкрыть еще и тег <strong>&lt;answer&gt;</strong> и здесь, <strong>внимание</strong>
+			   тег <strong>&lt;answer&gt;</strong> должен быть закрыт раньше, чем тег <strong>&lt;question&gt;</strong>
+			   . Такая запись будет ошибкой: <strong>&lt;question&gt;</strong><strong>&lt;answer&gt;</strong><strong>&lt;/question&gt;</strong><strong>&lt;/answer&gt;</strong>
+			А вот это - <strong>&lt;question&gt;</strong><strong>&lt;answer&gt;</strong><strong>&lt;/answer&gt;</strong><strong>&lt;/question&gt;</strong>
+			</p>
+			<p>
+				Кроме тегов, обозначающих объекты теста, существуют теги, описывающие эти объекты.
+				Тег <strong>&lt;title&gt;&lt;/title&gt;</strong> используется для указания названия.
+				Тег <strong>&lt;content&gt;&lt;/content&gt;</strong> используется для указания содержания.
+				В нашей системе и тест, и результаты, и вопросы и ответы обязательно должны иметь
+				и название и содержание.
+			</p>
+			<p>
+				Передположим некий тест выявляющий степень компьютерной грамотности
+			</p>
+				<div><strong>&lt;quiz&gt;</strong></div>
+					<div class="indent1"><strong>&lt;title&gt;</strong>Насколько хорошо вы разбираетесь в ИТ<strong>&lt;/title&gt;</strong></div>
+					<div class="indent1"><strong>&lt;content&gt</strong>Ответив на несколько не сложных вопросов, вы сможете оценить
+					меру своих знаний в области информационных технологий.<strong>&lt;/content&gt;</strong></div>
+					<div class="indent1">
+						<strong>&lt;result&gt;</strong>
+						   <div class="indent2"><strong>&lt;title&gt;</strong>Плохой результат<strong>&lt;/title&gt;</strong></div>
+						   <div class="indent2"><strong>&lt;content&gt;</strong>
+						   Не очень хорошо. Наверное вы использеуте компьютер время от времени.<strong>&lt;/content&gt;</strong></div>
+						<strong>&lt;/result&gt;</strong>
+					</div>
+				    <div class="indent1">
+						<strong>&lt;result&gt;</strong>
+						   <div class="indent2"><strong>&lt;title&gt;</strong>Хороший результат<strong>&lt;/title&gt;</strong></div>
+						   <div class="indent2"><strong>&lt;content&gt;</strong>
+						   Великолепно. Наверняка вы работаете программистом.<strong>&lt;/content&gt;</strong></div>
+						<strong>&lt;/result&gt;</strong>
+					</div>
+					<div class="indent1"><strong>&lt;question&gt;</strong></div>
+						   <div class="indent3"><strong>&lt;title&gt;</strong>10 Легкий вопрос<strong>&lt;/title&gt;</strong></div>
+						   <div class="indent3"><strong>&lt;content&gt;</strong>
+						   Сколько единиц информации можно получить используя всего 1 байт?<strong>&lt;/content&gt;</strong></div>
+						   
+						<div class="indent3"><strong>&lt;answer&gt;</strong></div>
+						   <div class="indent4"><strong>&lt;title&gt;</strong>10 Правильный ответ<strong>&lt;/title&gt;</strong></div>
+						   <div class="indent4"><strong>&lt;content&gt;</strong>
+						   256 единиц информации<strong>&lt;/content&gt;</strong></div>
+   						<div class="indent3"><strong>&lt;/answer&gt;</strong></div>
+						<div class="indent3"><strong>&lt;answer&gt;<strong></div>
+						   <div class="indent4"><strong>&lt;title&gt;</strong>20 Неправильный ответ<strong>&lt;/title&gt;</strong></div>
+						   <div class="indent4"><strong>&lt;content&gt;</strong>
+						   8 единиц информации<strong>&lt;/content&gt;</strong></div>
+						<div class="indent2"><strong>&lt;/answer&gt;</strong></div>
+						<div class="indent2"><strong>&lt;answer&gt;<strong></div>
+						   <div class="indent4"><strong>&lt;title&gt;</strong>30 Неправильный ответ<strong>&lt;/title&gt;</strong></div>
+						   <div class="indent4"><strong>&lt;content&gt;</strong>
+						   1 единицу информации<strong>&lt;/content&gt;</strong></div>
+						<div class="indent3"><strong>&lt;/answer&gt;</strong></div>
+					<div class="indent1"><strong>&lt;/question&gt;</strong></div>
+				<div><strong>&lt;/quiz&gt;</strong></div>
+				
+				<p>
+					В этом примере, вложенные друг в друга теги представляющие объекты теста, содержат
+					в себе теги с названием и содержанием.
+			    </p>
+				<p>
+					Кроме того, существуют теги, специфичные только для определенных объектов теста.
+				</p>
+				
+				<h2>&lt;quiz&gt;&lt;/quiz&gt;</h2>
+				<p> 
+				    Внутри тега &lt;quiz&gt;&lt;/quiz&gt;,
+					кроме тегов &lt;title&gt;&lt;/title&gt; и
+				    &lt;content&gt;&lt;/content&gt; также содержатся
+				    теги:
+				 </p>
+				 <div class="indent2">
+					<div class="indent3">
+						<strong>&lt;schema&gt; scale &lt;/schema&gt;</strong> - схема "Шкала"
+					</div>
+					<div class="indent3">
+						<strong>&lt;schema&gt; slots &lt;/schema&gt;</strong> - схема "Слоты"
+					</div>
+				 </div>
+	             <div class="indent2">
+				 	<div class="indent3">
+						<strong>&lt;questions_per_page&gt;10&lt;/questions_per_page&gt;</strong> - 
+	                    Содержит целое число определяющее колличество вопросов на странице
+					</div>
+				 </div>
+				 
+				<h2>&lt;result&gt;&lt;/result&gt;</h2>
+				<p> 
+				    Внутри тега &lt;result&gt;&lt;/result&gt;,
+					кроме тегов &lt;title&gt;&lt;/title&gt; и
+				    &lt;content&gt;&lt;/content&gt; также содержатся
+				    теги:
+				 </p>
+				 <div class="indent2">
+					<div class="indent3">
+						<strong>&lt;border&gt; 5 &lt;/border&gt;</strong> - верхняя
+						граница результата для схемы шкала
+					</div>
+				 </div>
+				<h2>&lt;question&gt;&lt;/question&gt;</h2>
+				<p> 
+				    Внутри тега &lt;question&gt;&lt;/question&gt;,
+					кроме тегов &lt;title&gt;&lt;/title&gt; и
+				    &lt;content&gt;&lt;/content&gt; могут содержаться только теги ответов
+					&lt;answer&gt;&lt;/answer&gt;. см. ниже.
+				 </p>
+				 
+				<h2>&lt;answer&gt;&lt;/answer&gt;</h2>
+				<p> 
+				    Внутри тега &lt;answer&gt;&lt;/answer&gt;,
+					кроме тегов &lt;title&gt;&lt;/title&gt; и
+				    &lt;content&gt;&lt;/content&gt; также содержатся
+				    теги:
+				 </p>
+				 <div class="indent2">
+					<div class="indent3">
+						<strong>&lt;value&gt; 10 &lt;/value&gt;</strong> - баллы ответа для схемы шкала.
+						внутри ответа, может быть только один такой тег. Внутри тега - целое число баллов.
+					</div>
+					<div class="indent3">
+						<strong>&lt;depend&gt; Отличный результат &lt;/depend&gt;</strong>
+						- влияние ответа (для схемы слоты).
+						Этих тегов может быть столько, сколько результатов
+						или меньше. Внутри тега - помещаются еще два тега:
+						<div class="indent4">
+							<strong>&lt;result_title&gt;Отличный результат&lt;/result_title&gt;</strong> - внутри этого тега
+							помещается название результата, на который влияет этот ответ
+						</div>
+				        <div class="indent4">
+						 	<strong>&lt;value&gt;100&lt;/value&gt;</strong> - внутри этого тега
+							помещается степень, с которой ответ влияет на результат. Целое число
+						</div>
+
+					</div>
+				 </div>
+	             <div class="indent2">
+				 	<div class="indent3">
+						<strong>&lt;lead&gt;10Сложный вопрос&lt;/lead&gt;</strong> - 
+	                    Внутри этого тега помещают название вопроса, на который происходит перемещение
+						пользователя, если он выберет этот ответ. Для ответа может быть указан только один такой тег.
+					</div>
+				 </div>
+				 <p>Вот собственно и все. Врядли ручное редактирование xml подходит для создание теста с нуля.
+				 Однако, использование файла модет показаться удобным, если необходимо отредактировать
+				 большое колличество вопросов и ответов, которые <strong>уже созданы</strong> в конструкторе тестов.
+				 </p>
+				 <p>
+				 	В теге &lt;content&gt;&lt;/content&gt; помимо текста могут содержатся
+					экранированные html теги, что может усложнить восприятие.
+					< записывается как & lt ; а > как & gt ;
+					Удобней, кажется, не обращать на них внимание, а править, собственно, текст.
+					Разметку и раскраску можно сделать потом в конструкторе.
+				 </p>
+				 <p>
+				 	<strong>Внимание! При загрузке файла все текущие данные теста удаляются, и на их место заносятся данные из файла!</strong>
+				 </p>
+			
+		</div>
+	</body>
+</html>

@@ -1,0 +1,11 @@
+<h1 class="about">Тесты по тегам:</h1>
+<div class="tagCloud">
+	<div class="tagCloud">
+    <a class="tag" href=""
+       tal:repeat="tag view/getCloud"
+       tal:attributes="class string:tag${tag/normalized};
+                       href string:${view/quizes_page}?tagname=${tag/name}
+                      "
+       tal:content="string:${tag/name}"/>
+	</div>
+</div>

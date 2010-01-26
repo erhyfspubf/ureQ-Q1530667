@@ -1,0 +1,7 @@
+ <div tal:define="counter view/gimmeCounter">
+	<div class="Counter" tal:condition="counter">
+		<span class="small">
+			<em>комментарии:</em><span tal:content="view/gimmeCounter">Counter</span>
+		</span>
+	</div>
+</div>

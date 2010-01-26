@@ -1,0 +1,245 @@
+<configure
+xmlns:zope="http://namespaces.zope.org/zope"
+xmlns="http://namespaces.zope.org/browser"
+xmlns:jsonrpc="http://namespaces.zope.org/jsonrpc">
+	
+<page
+	name="constructor.html"
+	for="qreature.interfaces.IQuiz"
+	class=".constructor.QuizConstructor"
+	permission="qreature.edit_quiz"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+
+<page
+	name="help.html"
+	for="qreature.interfaces.IQuiz"
+	class=".constructor.Help"
+	permission="qreature.edit_quiz"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+
+<!--  LeftSideBar-->
+<viewlet
+	name="10Pictures Help"
+	for="qreature.interfaces.IQuiz"
+  	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+	permission="qreature.edit_quiz"
+	class=".constructor.PictureHelp"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	template="./templates/picture_help.pt"
+	view = ".interfaces.IQuizConstructor"
+/>
+<viewlet
+	name="20ScaleHelp"
+	for="qreature.interfaces.IQuiz"
+  	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+  	permission="zope.View"
+	class=".constructor.ScaleHelp"
+	layer="qreature.skin.interfaces.IScaleLayer"
+	template="./templates/scale_help.pt"
+	view = ".interfaces.IQuizConstructor"
+/>
+
+<viewlet
+	name="30SlotsHelp"
+	for="qreature.interfaces.IQuiz"
+  	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+	permission="qreature.edit_quiz"
+	class=".constructor.SlotsHelp"
+	layer="qreature.skin.interfaces.ISlotLayer"
+	template="./templates/slots_help.pt"
+	view = ".interfaces.IQuizConstructor"
+/>
+
+
+<!-- Buttons menu -->
+
+
+
+<viewlet
+	name="30ScaleButton"
+	for="qreature.interfaces.IQuiz"
+  	manager="qreature.skin.interfaces.IQreatureRightSideBarVM"
+  	permission="qreature.edit_quiz"
+	class=".actions.Scale"
+	layer="qreature.skin.interfaces.ISlotLayer"
+	view=".interfaces.IQuizConstructor"
+/>
+<viewlet
+	name="30SlotsButton"
+	for="qreature.interfaces.IQuiz"
+  	manager="qreature.skin.interfaces.IQreatureRightSideBarVM"
+  	permission="qreature.edit_quiz"
+	class=".actions.Slots"
+	layer="qreature.skin.interfaces.IScaleLayer"
+	view=".interfaces.IQuizConstructor"
+/>
+<viewlet
+	name="40LeadedButton"
+	for="qreature.interfaces.IQuiz"
+  	manager="qreature.skin.interfaces.IQreatureRightSideBarVM"
+  	permission="qreature.edit_quiz"
+	class=".actions.Leaded"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".interfaces.IQuizConstructor"
+/>
+
+<viewlet
+	name="50PagesButton"
+	for="qreature.interfaces.IQuiz"
+  	manager="qreature.skin.interfaces.IQreatureRightSideBarVM"
+  	permission="qreature.edit_quiz"
+	class=".actions.QuizPagesForm"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".interfaces.IQuizConstructor"
+/>
+
+<viewlet
+	name="60TexturedQuestions"
+	for="qreature.interfaces.IQuiz"
+  	manager="qreature.skin.interfaces.IQreatureRightSideBarVM"
+  	permission="qreature.edit_quiz"
+	class=".actions.TexturedButtonQuestions"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".interfaces.IQuizConstructor"
+/>
+<viewlet
+	name="65TexturedAnswers"
+	for="qreature.interfaces.IQuiz"
+  	manager="qreature.skin.interfaces.IQreatureRightSideBarVM"
+  	permission="qreature.edit_quiz"
+	class=".actions.TexturedButtonAnswers"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".interfaces.IQuizConstructor"
+/>
+<viewlet
+	name="70CheckButton"
+	for="qreature.interfaces.IQuiz"
+  	manager="qreature.skin.interfaces.IQreatureRightSideBarVM"
+  	permission="qreature.edit_quiz"
+	class=".actions.CheckButton"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".interfaces.IQuizConstructor"
+/>
+
+<viewlet
+	name="80PreviewButton"
+	for="qreature.browser.user_quiz.interfaces.IChecked"
+  	manager="qreature.skin.interfaces.IQreatureRightSideBarVM"
+  	permission="qreature.edit_quiz"
+	class=".actions.PreviewButton"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".interfaces.IQuizConstructor"
+/>
+
+<viewlet
+	name="80PublishButton"
+	for="qreature.browser.user_quiz.interfaces.IChecked"
+  	manager="qreature.skin.interfaces.IQreatureRightSideBarVM"
+  	permission="qreature.edit_quiz"
+	class=".actions.PublishButton"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".interfaces.IQuizConstructor"
+/>
+<viewlet
+	name="10AddingResult"
+	for="qreature.interfaces.IQuiz"
+  	manager="qreature.browser.interfaces.IQreatureButtonsMenuVM"
+  	permission="qreature.edit_quiz"
+	class="..links.AddingResult"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".interfaces.IQuizConstructor"
+/>
+
+<viewlet
+	name="20AddingQuestion"
+	for="qreature.interfaces.IQuiz"
+  	manager="qreature.browser.interfaces.IQreatureButtonsMenuVM"
+  	permission="qreature.edit_quiz"
+	class="..links.AddingQuestion"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".interfaces.IQuizConstructor"
+/>
+
+<zope:adapter
+	factory=".actions.PagesDataConverter"
+/>
+<zope:adapter
+	factory=".actions.PagesDataManager"
+/>
+<zope:adapter
+	factory=".actions.QuizPages"
+/>
+
+
+
+<!-- Viewlets for quiz contents (questions and answers) on constructor page-->
+<viewlet
+	name="10Results For Constructor"
+	for="qreature.interfaces.IQuiz"
+  	manager="..interfaces.IQreatureGeneralVM"
+	permission="qreature.edit_quiz"
+	class=".constructor.ResultsForConstructor"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".interfaces.IQuizConstructor"
+/>
+
+<viewlet
+	name="20Questions For Constructor"
+	for="qreature.interfaces.IQuiz"
+  	manager="..interfaces.IQreatureGeneralVM"
+  	permission="zope.View"
+	class=".constructor.QuestionsForConstructor"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".interfaces.IQuizConstructor"
+/>
+
+<zope:resourceLibrary name="quiz_constructor">
+	<directory source="../quiz_constructor" include="async.js"/>
+</zope:resourceLibrary> 
+
+<jsonrpc:view
+    for="qreature.interfaces.IQuiz"
+    permission="qreature.edit_quiz"
+    methods="applyChanges deleteObject addObject"
+    class=".async.Async"
+/>
+<zope:adapter factory=".async.AsyncLead" />
+<zope:adapter factory=".async.AsyncDepend" />
+<zope:adapter factory=".async.AsyncValue" />
+
+<page
+	for="qreature.interfaces.IQuiz"
+	name="pagable"
+	class="pagable.browser.Pagable"
+	template="../../../pagable/pagable.pt"
+  	permission="qreature.edit_quiz"
+/>
+
+
+
+<viewlet
+	name="05QuizAsXML"
+	for="qreature.interfaces.IQuiz"
+  	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+	permission="qreature.edit_quiz"
+	class=".xml.QuizAsXMLView"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view = ".interfaces.IQuizConstructor"
+/>
+
+<zope:subscriber
+	factory=".xml.QuizXMLTraverser"
+	provides="multi_traverser.interfaces.IMultiTraverserClient"
+	permission="zope.View"
+/>
+
+<page
+	for="qreature.interfaces.IQuiz"
+	name="xml_help.html"
+	template="./templates/xml_help.pt"
+  	permission="qreature.edit_quiz"
+	class=".xml.XMLHelp"
+/>
+</configure>

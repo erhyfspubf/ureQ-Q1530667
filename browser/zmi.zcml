@@ -1,0 +1,107 @@
+<configure
+    xmlns:zope="http://namespaces.zope.org/zope"
+	xmlns="http://namespaces.zope.org/browser"
+>
+	
+<addform
+    label="Add Qreature Site"
+    name="AddQreatureSite.html"
+    schema="qreature.interfaces.IQreatureSite"
+    content_factory="qreature.site.QreatureSite"
+    permission="zope.ManageServices"
+/>
+
+<editform
+    schema="qreature.interfaces.IQreatureSite"
+    for="qreature.interfaces.IQreatureSite"
+    label="Change Qreature Site"
+    name="edit.html"
+    permission="zope.ManageServices"
+    menu="zmi_views" title="Edit"
+/>
+
+<addMenuItem
+    factory="qreature.site.QreatureSite"
+    title="Qreature Site"
+    description="Add new Qreature Site"
+    permission="zope.ManageServices"
+    view="AddQreatureSite.html"
+/>  
+<containerViews
+    for="qreature.interfaces.IQreatureSite"
+    contents="zope.ManageContent"
+    add="zope.View"
+ />
+ 
+<containerViews
+    for="qreature.interfaces.IQreatureFolder"
+    contents="zope.ManageContent"
+    add="qreature.edit_quiz"
+ />
+
+
+
+<containerViews
+    for="qreature.interfaces.IQuiz"
+    index="zope.ManageContent"
+    contents="zope.ManageContent"
+    add="zope.View"
+ />
+<containerViews
+    for="qreature.interfaces.IQuizResult"
+    index="zope.ManageContent"
+    contents="zope.ManageContent"
+    add="qreature.edit_quiz"
+ />
+ <containerViews
+    for="qreature.interfaces.IQuizQuestion"
+    index="zope.ManageContent"
+    contents="zope.ManageContent"
+    add="qreature.edit_quiz"
+ /> 
+  <containerViews
+    for="qreature.interfaces.IQuizAnswer"
+    index="zope.ManageContent"
+    contents="zope.ManageContent"
+    add="qreature.edit_quiz"
+ /> 
+
+<containerViews
+    for="qreature.interfaces.IQreatureNews"
+    index="zope.ManageServices"
+    contents="zope.ManageServices"
+    add="zope.View"
+ />
+  
+<containerViews
+	for="qreature.interfaces.IQreatureComment"
+	index="zope.ManageServices"
+	contents="zope.ManageServices"
+	add="zope.View"
+/>
+
+<editform
+    schema="qreature.interfaces.IQreatureComment"
+    for="qreature.interfaces.IQreatureComment"
+    label="Change Qreature Comment"
+    name="edit.html"
+    permission="zope.ManageServices"
+    menu="zmi_views" title="Edit"
+/>
+
+<editform
+    schema="qreature.interfaces.IQreatureNews"
+    for="qreature.interfaces.IQreatureNews"
+    label="Change Qreature News"
+    name="edit.html"
+    permission="zope.ManageContent"
+    menu="zmi_views" title="Edit"
+/>
+
+<addMenuItem
+    class="lovely.tag.engine.TaggingEngine"
+    title="Tagging Engine"
+    permission="zope.ManageServices"
+/>
+
+</configure>

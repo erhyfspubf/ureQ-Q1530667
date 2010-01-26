@@ -1,0 +1,97 @@
+<configure
+xmlns:zope="http://namespaces.zope.org/zope"
+xmlns="http://namespaces.zope.org/browser">
+
+
+
+<!--              Quiz Folder forms    -->  
+<page
+  for="zope.app.container.interfaces.IAdding"
+  name="AddQreatureFolder.html"
+  class=".folder.QreatureFolderAddForm"
+  permission="zope.View"
+  layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+ 
+<!--               Quiz Folder  forms                   -->
+
+<page
+	name="main.html"
+	for="qreature.interfaces.IQreatureFolder"
+	class=".folder.QreatureFolder"
+	permission="zope.View"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+
+<viewlet
+	name="10Quizes For Qreature Folder"
+	for="qreature.interfaces.IQreatureFolder"
+  	manager="..interfaces.IQreatureFolderVM"
+	permission="qreature.edit_quiz"
+	class=".folder.QuizesForQreatureFolder"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".folder.QreatureFolder"
+/>
+<!-- Left Side Bar -->
+<viewlet
+	name="Add folder help"
+	for="zope.app.container.interfaces.IAdding"
+  	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+  	permission="zope.Public"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	template="./templates/add_folder_help.pt"
+	view = ".folder.QreatureFolderAddForm"
+/>
+
+<viewlet
+	name="10Edit Folder"
+	for="qreature.interfaces.IQreatureFolder"
+	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+	class=".folder.QreatureFolderEditForm"
+	permission="qreature.edit_quiz"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+
+  <zope:class class=".folder.QreatureFolderEditForm">
+	<implements interface=".interfaces.IQreatureFolderEditForm"/>
+  </zope:class>
+
+
+
+<viewlet
+	name="10AddingQuiz"
+	for="qreature.interfaces.IQreatureFolder"
+  	manager="qreature.browser.interfaces.IQreatureButtonsMenuVM"
+  	permission="qreature.edit_quiz"
+	class="..links.AddingQuiz"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+
+<page
+	name="index.html"
+	for="qreature.interfaces.IQreatureFolder"
+	permission="zope.View"
+	class = ".folder.AuthorInfo"
+/>
+
+<viewlet
+	name="10Pictures Help"
+	for="qreature.interfaces.IQreatureFolder"
+  	manager="qreature.skin.interfaces.IQreatureRightSideBarVM"
+	permission="qreature.edit_quiz"
+	class=".folder.PictureHelp"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	template="./templates/picture_help.pt"
+	view = ".interfaces.IQreatureFolderView"
+/>
+
+
+<page
+	for="qreature.interfaces.IQreatureFolder"
+	name="pagable"
+	class="pagable.browser.Pagable"
+	template="../../../pagable/pagable.pt"
+	permission="qreature.edit_quiz"
+/>
+
+</configure>

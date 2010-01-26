@@ -1,0 +1,8 @@
+<div class="news">
+	<div><strong tal:content="context/title">Title</strong></div>
+	<div tal:content="structure context/body">Body</div>
+	<div class="small">
+		<em tal:content="view/created">date created</em>
+	</div>
+	<tal:providers replace="structure provider:commentable.CommentableLinksVM"/>
+</div>

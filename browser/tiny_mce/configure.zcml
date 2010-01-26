@@ -1,0 +1,16 @@
+<configure
+xmlns:zope="http://namespaces.zope.org/zope"
+xmlns="http://namespaces.zope.org/browser"
+xmlns:z3c="http://namespaces.zope.org/z3c">
+	
+
+<zope:resourceLibrary name="tiny_mce">
+	<directory source="tiny_mce" include="tiny_mce_src.js"/>
+</zope:resourceLibrary>
+
+<zope:adapter
+  factory=".widget.tinyWidget"
+  provides="z3c.form.interfaces.IFieldWidget"
+/>
+	
+</configure>

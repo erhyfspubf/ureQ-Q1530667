@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<urlset 
+	xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+	xmlns:tal="http://xml.zope.org/namespaces/tal">
+   
+
+   <url>
+
+      <loc>http://www.qreature.ru/</loc>
+
+      <lastmod>2008-31-10</lastmod>
+
+      <changefreq>weekly</changefreq>
+
+      <priority>1.0</priority>
+
+   </url>
+
+   <url>
+
+      <loc>http://www.qreature.ru/help.html</loc>
+
+      <lastmod>2008-31-10</lastmod>
+
+      <changefreq>weekly</changefreq>
+
+      <priority>1.0</priority>
+
+   </url>
+   
+   <url tal:repeat="url view/gimmeURL">
+   	   
+	  <loc tal:content="url/loc"/>
+
+      <lastmod tal:content="url/lastmod"/>
+
+      <changefreq tal:content="url/changefreq"/>
+
+      <priority tal:content="url/priority"/>
+   
+   </url>
+
+
+</urlset>
+
+
+

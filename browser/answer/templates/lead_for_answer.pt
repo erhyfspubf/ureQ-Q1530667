@@ -1,0 +1,4 @@
+<tal:block repeat="lead view/gimmeViewlets">
+	<span tal:replace="structure lead/render"/>
+</tal:block>
+

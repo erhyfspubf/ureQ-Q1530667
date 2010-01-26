@@ -1,0 +1,34 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/@@standard_macros/page">
+  <body>
+    <div metal:fill-slot="body"> 
+		<tal:block condition="view/need_button">
+			<h1>Так это увидят ваши читатели</h1>
+		</tal:block>
+		<tal:block condition="not:view/need_button">
+			<h1>Результат</h1>
+		</tal:block>
+		<tal:block replace="structure view/gimmeForm"/>
+		<p></p>
+		<tal:block condition="view/do_i_need_source_widget">
+			<div><em>PHbb Код для форума:</em></div>
+			<div class="source_code">
+				<input type="text" onclick="javascript:this.focus();this.select();"
+				 tal:attributes="value view/gimmePHbb"/>
+			</div>
+			<p></p>
+			<div><em>Прямая ссылка на тест:</em></div>
+			<div class="source_code">
+				<input type="text" onclick="javascript:this.focus();this.select();"
+				 tal:attributes="value view/gimmeLink"/>
+			</div>
+			<p></p>
+		</tal:block>
+		<tal:providers replace="structure provider:commentable.CommentableLinksVM"/>
+		
+	</div>
+  </body>
+</html>
+

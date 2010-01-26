@@ -1,0 +1,25 @@
+
+	<h1 class="about">Личное</h1>
+	<div>
+		<form action="." tal:attributes="action request/URL" class="QreatureFolderEditForm">
+			<div tal:repeat="widget view/widgets/values">
+			        <strong tal:condition="widget/error"
+			           tal:content="structure widget/error/render"/>
+
+					<label for=""
+			               tal:attributes="for widget/id"
+			               tal:content="widget/label"/>
+					<div>
+						<input type="text" tal:replace="structure widget/render"/>
+					</div>
+			</div>
+			
+			<div class="action" tal:repeat="action view/actions/values">
+				<span class="picture_button">
+					<input type="submit" tal:replace="structure action/render"/>
+				</span><strong class="QreatureButtonTitle">изменить</strong>
+			</div>
+   		 </form>
+		 <em tal:condition="view/status" tal:content="view/status" />
+		 
+  	</div>

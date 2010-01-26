@@ -1,0 +1,536 @@
+<configure
+xmlns:zope="http://namespaces.zope.org/zope"
+xmlns="http://namespaces.zope.org/browser"
+xmlns:z3c="http://namespaces.zope.org/z3c">
+
+<page
+      name="loginForm.html" 
+      for="*"
+      permission="zope.Public"
+	  layer="qreature.skin.interfaces.IQreatureSkin"
+	  class=".login.QreatureLogin"
+/>
+
+
+<zope:adapter factory=".login.LoginEmail"/>
+
+<page
+	name="logout.html"
+	for="*"
+	class=".logout.Logout"
+	attribute="logout"
+	permission="qreature.edit_quiz"
+	allowed_interface="zope.app.publisher.interfaces.http.ILogout"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+
+<viewlet
+	name="100Logout"
+	for="*"
+  	manager="qreature.skin.interfaces.IQreatureMenuVM"
+  	permission="qreature.edit_quiz"
+	template="./templates/link.pt"
+	class=".links.Logout"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+
+<!-- common viewlets for menu -->
+<viewlet
+	name="90MyQreatures"
+	for="*"
+  	manager="qreature.skin.interfaces.IQreatureMenuVM"
+  	permission="zope.View"
+	template="./templates/link.pt"
+	class=".links.Qreatures"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+
+<viewlet
+	name="0Main"
+	for="*"
+  	manager="qreature.skin.interfaces.IQreatureMenuVM"
+  	permission="zope.View"
+	template="./templates/link.pt"
+	class=".links.Main"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+
+
+<viewlet
+	name="999Clear"
+	for="*"
+	manager = ".interfaces.IQreatureButtonsMenuVM"
+	permission="zope.View"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	template="./templates/clear.pt"
+/>
+<viewlet
+	name="999Clear"
+	for="*"
+	manager="qreature.skin.interfaces.IQreatureMenuVM"
+	permission="zope.View"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	template="./templates/clear.pt"
+/>
+
+<!-- common viewlets for menu 	manager="qreature.skin.interfaces.IQreatureMenuVM"-->
+
+
+<viewletManager
+  name="qreature.QreatureSiteVM"
+  provides=".interfaces.IQreatureSiteVM"
+  permission="qreature.edit_quiz"
+  class=".manager.QreatureSiteVM"
+/>
+<viewletManager
+  name="qreature.QreatureFolderVM"
+  provides=".interfaces.IQreatureFolderVM"
+  permission="qreature.edit_quiz"
+  class=".manager.QreatureFolderVM"
+/>
+
+<viewletManager
+  name="qreature.QreatureGeneralVM"
+  provides=".interfaces.IQreatureGeneralVM"
+  permission="qreature.edit_quiz"
+  class=".manager.QreatureGeneralVM"
+/>
+<!-- Quiz, Result, Answer and Question are IQuizContainer objects-->
+
+
+<viewlet
+	name="30Actions"
+	for="qreature.interfaces.IQuizContainer"
+  	manager="qreature.browser.interfaces.IQreatureFolderVM"
+  	permission="qreature.edit_quiz"
+	class=".qreature_views.QreatureActions"
+	template="./templates/actions.pt"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".qreature_views.QreatureEditableView"
+/>
+<viewlet
+	name="30Actions"
+	for="qreature.interfaces.IQuizContainer"
+  	manager="qreature.browser.interfaces.IQreatureGeneralVM"
+  	permission="qreature.edit_quiz"
+	class=".qreature_views.QreatureActions"
+	template="./templates/actions.pt"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".qreature_views.QreatureEditableView"
+/>
+<!-- The above viewlet will collect viewlets for QreatureButtonsMenuVM -->
+<viewletManager
+  name="qreature.QreatureButtonsMenuVM"
+  provides=".interfaces.IQreatureButtonsMenuVM"
+  permission="qreature.edit_quiz"
+  class=".manager.QreatureButtonsMenuVM"
+/>
+<!-- Button menu for Quiz -->
+<viewlet
+	name="10Preview"
+	for="qreature.interfaces.IQuizContainer"
+  	manager=".interfaces.IQreatureButtonsMenuVM"
+  	permission="qreature.edit_quiz"
+	class=".links.Preview"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".qreature_views.QreatureActions"
+/>
+<viewlet
+	name="20Edit"
+	for="qreature.interfaces.IQuizContainer"
+  	manager=".interfaces.IQreatureButtonsMenuVM"
+  	permission="qreature.edit_quiz"
+	class=".links.Edit"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".qreature_views.QreatureActions"
+/>
+<viewlet
+	name="60DeleteButton"
+	for="qreature.interfaces.IQuizContainer"
+  	manager=".interfaces.IQreatureButtonsMenuVM"
+  	permission="qreature.edit_quiz"
+	class=".actions.DeleteButton"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".qreature_views.QreatureActions"
+/>
+<viewlet
+	name="40CheckButton"
+	for="qreature.interfaces.IQuiz"
+  	manager=".interfaces.IQreatureButtonsMenuVM"
+  	permission="qreature.edit_quiz"
+	class=".actions.CheckButton"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".qreature_views.QreatureActions"
+/>
+
+<viewlet
+	name="50PublishButton"
+	for="qreature.browser.user_quiz.interfaces.IChecked"
+  	manager=".interfaces.IQreatureButtonsMenuVM"
+  	permission="qreature.edit_quiz"
+	class=".actions.PublishButton"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".qreature_views.QreatureActions"
+/>
+<!-- Button menu for Quiz -->
+
+
+
+  
+<zope:subscriber handler=".handlers.clean_viewlets_tree"/>
+<zope:subscriber handler=".handlers.clean_cache"/>
+
+<viewlet
+	name="10Back"
+	for="qreature.interfaces.IQuizContainer"
+  	manager=".interfaces.IQreatureButtonsMenuVM"
+  	permission="qreature.edit_quiz"
+	class=".links.Back"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".qreature_views.QreatureEditForm"
+/>
+
+<viewlet
+	name="10Back"
+	for="qreature.interfaces.IQuizContainer"
+  	manager=".interfaces.IQreatureButtonsMenuVM"
+  	permission="qreature.edit_quiz"
+	class=".links.Back"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".quiz_constructor.constructor.Help"
+/>
+
+<page
+	for="qreature.interfaces.IQuizContainer"
+	name="preview.html"
+	class=".qreature_views.PreviewForm"
+	template="./templates/preview_form.pt"
+	permission="qreature.edit_quiz"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+
+<z3c:widgetTemplate
+	mode="display"
+	template="./templates/preview_widget_display.pt"
+	widget="z3c.form.browser.textarea.TextAreaWidget"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".qreature_views.PreviewForm"
+/>
+
+<z3c:widgetTemplate
+	mode="input"
+	template="./templates/preview_widget_input.pt"
+	widget="z3c.form.browser.textarea.TextAreaWidget"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".qreature_views.PreviewForm"
+/>
+
+<z3c:widgetTemplate
+  mode="input"
+  widget="z3c.form.interfaces.ISubmitWidget"
+  layer="qreature.skin.interfaces.IQreatureSkin"
+  template="./templates/preview_widget_submit.pt"
+  view=".qreature_views.PreviewForm"
+/>
+
+
+
+<page
+	for="*"
+	name="not_found.html"
+	template="./templates/not_found.pt"
+	permission="zope.View"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	class=".qreature_views.NotFound"
+/>
+
+
+<page
+	for="qreature.interfaces.IQreatureSite"
+	name="advert.html"
+	template="./templates/advert.pt"
+	permission="zope.View"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+
+
+<viewlet
+	name="10 AdditionalQuizAdjustment"
+	for="qreature.browser.user_quiz.interfaces.IPublished"
+  	manager="qreature.skin.interfaces.IQreatureRightSideBarVM"
+  	permission="qreature.edit_quiz"
+	class=".qreature_views.AdditionalQuizAdjustment"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".interfaces.IPreviewForm"
+/>
+
+<zope:adapter factory=".qreature_views.AdditionalAdjustment" />
+
+<zope:subscriber handler=".actions.unpublishCauseChildren"/>
+<zope:subscriber handler=".actions.unpublishCauseLead"/>
+
+<viewlet
+	name="GoogImage"
+	for="qreature.interfaces.IQuizContainer"
+  	manager="qreature.skin.interfaces.IQreatureRightSideBarVM"
+  	permission="qreature.edit_quiz"
+	class=".qreature_views.GoogImageForQuizContainer"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".interfaces.IQreatureEditForm"
+/>
+<viewlet
+	name="GoogImage"
+	for="zope.app.container.interfaces.IAdding"
+  	manager="qreature.skin.interfaces.IQreatureRightSideBarVM"
+  	permission="qreature.edit_quiz"
+	class=".qreature_views.GoogImageForQuizContainer"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".interfaces.IQreatureAddForm"
+/>
+
+
+<zope:subscriber handler=".handlers.cleanRAMForQuestion"/>
+<zope:subscriber handler=".handlers.cleanRAMForAnswer"/>
+<zope:subscriber handler=".handlers.cleanRAMForResult"/>
+<zope:subscriber handler=".handlers.cleanRAMForValue"/>
+<zope:subscriber handler=".handlers.cleanRAMForDepends"/>
+<zope:subscriber handler=".handlers.cleanRAMForLead"/>
+
+<zope:subscriber handler=".handlers.cleanLeadsAtAdding"/>
+<zope:subscriber handler=".handlers.cleanLeadsAtDeleting"/>
+
+
+
+<!-- Commentable -->
+<!-- This Viewlet actually is for preview form -->
+
+<viewlet 
+	 name="10link_to_comment"
+	 for="qreature.interfaces.IQuizContainer"
+	 manager="commentable.interfaces.ICommentableLinksVM"
+	 permission="zope.View"
+	 class=".links.AddingComment"
+	 layer="qreature.skin.interfaces.IQreatureSkin"
+	 template="./templates/link.pt"
+/>
+<viewlet 
+	 name="10link_to_comment"
+	 for="commentable.interfaces.ICommentable"
+	 manager="commentable.interfaces.ICommentableLinksVM"
+	 permission="zope.View"
+	 class=".links.AddingComment"
+	 layer="qreature.skin.interfaces.IQreatureSkin"
+	 template="./templates/link.pt"
+/>
+
+<viewlet
+	 name="20link_to_thread"
+	 for="qreature.interfaces.IQuizContainer"
+	 manager="commentable.interfaces.ICommentableLinksVM"
+	 permission="zope.View"
+	 class=".links.Thread"
+	 layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+
+<viewlet
+	 name="20link_to_thread"
+	 for="commentable.interfaces.ICommentable"
+	 manager="commentable.interfaces.ICommentableLinksVM"
+	 permission="zope.View"
+	 class=".links.Thread"
+	 layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+
+<viewlet 
+	 name="30comment_counter"
+	 for="qreature.interfaces.IQuizContainer"
+	 manager="commentable.interfaces.ICommentableLinksVM"
+	 permission="zope.View"
+	 class=".comment.CommentCounter"
+	 layer="qreature.skin.interfaces.IQreatureSkin"
+	 template="./templates/comment_counter.pt"
+/>
+
+ 
+<!-- This Viewlet actually is for preview form -->
+
+
+<!-- This viewlet for all commentables -->
+<page
+  name="AddQreatureComment.html"
+  for="zope.app.container.interfaces.IAdding"
+  class=".comment.QreatureCommentAddForm"
+  permission="zope.View"
+  layer="qreature.skin.interfaces.IQreatureSkin"
+ />
+ 
+<viewlet
+	name="10 About"
+  	for="zope.app.container.interfaces.IAdding"
+	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+  	permission="zope.View"
+	class=".qreature_views.QreatureAbouted"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".comment.QreatureCommentAddForm"
+/>
+
+<viewlet
+	name="10 About"
+  	for="qreature.interfaces.IQreatureComment"
+	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+  	permission="zope.View"
+	class=".qreature_views.QreatureAbouted"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view="commentable.interfaces.IThreadView"
+/>
+
+<viewlet
+	name="QuizCommentableView"
+  	for="qreature.interfaces.IQuiz"
+	manager="commentable.interfaces.ICommentableViewVM"
+  	permission="zope.View"
+	class=".comment.QuizCommentableView"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	template="./templates/QuizAsCommentable.pt"
+/>
+
+<!-- This viewlet for all commentables -->
+
+
+<viewlet
+	name="CommentCommentableView"
+  	for="qreature.interfaces.IQreatureComment"
+	manager="commentable.interfaces.ICommentableViewVM"
+  	permission="zope.View"
+	class=".comment.CommentCommentableView"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	template="./templates/CommentAsCommentable.pt"
+/>
+
+<viewlet 
+	 name="20level_up"
+	 for="qreature.interfaces.IQreatureComment"
+	 manager="commentable.interfaces.ICommentableLinksVM"
+	 permission="zope.View"
+	 class=".links.LevelUp"
+	 layer="qreature.skin.interfaces.IQreatureSkin"
+	 template="./templates/link.pt"
+	 view ="commentable.interfaces.IHeadView" 
+/>
+<viewlet
+	 name="30link_to_thread"
+	 for="qreature.interfaces.IQreatureComment"
+	 manager="commentable.interfaces.ICommentableLinksVM"
+	 permission="zope.View"
+	 class=".links.Thread"
+	 layer="qreature.skin.interfaces.IQreatureSkin"
+	 view="commentable.interfaces.IHeadView"
+/>
+
+
+<viewlet
+	name="30Actions"
+	for="qreature.interfaces.IQreatureComment"
+  	manager="commentable.interfaces.ICommentableLinksVM"
+  	permission="qreature.edit_quiz"
+	class=".qreature_views.QreatureActions"
+	template="./templates/actions.pt"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+
+
+<viewlet
+	name="60DeleteButton"
+	for="qreature.interfaces.IQreatureComment"
+  	manager="qreature.browser.interfaces.IQreatureButtonsMenuVM"
+  	permission="qreature.edit_quiz"
+	class=".comment.DeleteCommentButton"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+
+
+<zope:subscriber handler=".handlers.commentToEmail"/>
+<!-- Commentable -->
+
+<zope:subscriber handler=".handlers.countResults"/>
+<zope:subscriber handler=".handlers.doPostPublishRoutine"/>
+
+
+<viewlet
+	name="20 TagManagerViewlet"
+	for="qreature.browser.user_quiz.interfaces.IPublished"
+  	manager="qreature.skin.interfaces.IQreatureRightSideBarVM"
+  	permission="qreature.edit_quiz"
+	class=".tagging.TagManagerViewlet"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".interfaces.IPreviewForm"
+/>
+
+<zope:adapter factory=".tagging.TagManager" />
+<zope:subscriber handler=".tagging.cleanEmptyTags"/>
+
+<zope:resourceLibrary name="qreature.browser">
+	<directory source="../browser" include="add_tag.js"/>
+</zope:resourceLibrary>
+
+
+<!-- via this viewlet, the Administrator could assign tags to quizes manually, on the results page view=".interfaces.IPreviewForm-->
+<viewlet
+	name="30 TagManagerViewlet"
+	for="qreature.interfaces.IQuiz"
+  	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+  	permission="zope.ManageServices"
+	class=".tagging.TagManagerAdminViewlet"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view="qreature.browser.user_quiz.user_quiz.UserQuiz"
+/>
+<!-- the same adapter, but for admin! -->
+<zope:adapter factory=".tagging.TagAdminManager" />
+
+<!-- it need to make it only for Paid Quizes -->
+<resource
+	name="paid.js"
+	file="paid.js"	
+/>
+
+<page
+	for="qreature.interfaces.IQuizContainer"
+	name="preview.html"
+	class=".qreature_views.PreviewForm"
+	template="./templates/preview_form.pt"
+	permission="qreature.edit_quiz"
+	layer="qreature.skin.interfaces.IPaidSkin"
+/>
+
+<z3c:widgetTemplate
+	mode="display"
+	template="./templates/preview_widget_display.pt"
+	widget="z3c.form.browser.textarea.TextAreaWidget"
+	layer="qreature.skin.interfaces.IPaidSkin"
+	view=".qreature_views.PreviewForm"
+/>
+
+<z3c:widgetTemplate
+	mode="input"
+	template="./templates/preview_widget_input.pt"
+	widget="z3c.form.browser.textarea.TextAreaWidget"
+	layer="qreature.skin.interfaces.IPaidSkin"
+	view=".qreature_views.PreviewForm"
+/>
+
+
+
+
+<include package=".user_quiz"/>
+<include file="zmi.zcml" />
+<include package=".site"/>
+<include package=".folder"/>
+<include package=".quiz"/>
+<include package=".quiz_constructor"/>
+<include package=".result"/>
+<include package=".question"/>
+<include package=".answer"/>
+<include package=".tiny_mce"/>
+
+
+</configure>

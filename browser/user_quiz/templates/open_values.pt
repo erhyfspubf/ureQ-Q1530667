@@ -1,0 +1,7 @@
+<h1>Вы набрали:</h1>
+<div>
+	<span tal:content="view/gimmeValues">value</span><span> баллов</span>
+</div>
+<div>
+	<span>Из </span><span tal:content="view/gimmeTotalValues">value</span><span> возможных</span>
+</div>

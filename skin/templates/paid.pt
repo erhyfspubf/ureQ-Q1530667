@@ -1,0 +1,11 @@
+<metal:block xmlns:metal="http://xml.zope.org/namespaces/metal"
+             metal:define-macro="page">
+
+
+<div>
+	<metal:slot define-slot="body">
+		        The body goes here
+    </metal:slot>
+</div>
+
+</metal:block>

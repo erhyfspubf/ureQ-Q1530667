@@ -1,0 +1,15 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/@@standard_macros/page">
+	<body>
+		<div metal:fill-slot="body">
+			<h1>Пользователи</h1>
+			<div tal:repeat="user view/gimmeUsers">
+				<div><strong>Пользователь:</strong><span tal:content="user/title">title</span></div>
+				<div><strong>Сайт/блог:</strong><span tal:content="user/url">body</span></div>
+				<div><strong>Email</strong><span tal:content="user/email">email</span></div>
+			</div>
+		</div>
+	</body>
+</html>

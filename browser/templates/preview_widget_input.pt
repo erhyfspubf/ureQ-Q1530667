@@ -1,0 +1,8 @@
+<div class="source_code">
+	<div>
+		<em tal:content="view/label">label</em>
+	</div>
+
+	<input type="text" class="source_code" onclick="javascript:this.focus();this.select();"
+	    tal:attributes="value view/value" />
+</div>

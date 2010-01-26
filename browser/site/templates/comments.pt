@@ -1,0 +1,17 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/@@standard_macros/page">
+	<body>
+		<div metal:fill-slot="body">
+			<h1>Комментарии</h1>
+			<div tal:repeat="comment view/gimmeComments">
+				<div><strong>Автор:</strong><span tal:content="comment/title">title</span></div>
+				<div><strong>Текст:</strong><span tal:content="comment/body">body</span></div>
+				<div><strong>Создан:</strong><span tal:content="comment/created">created</span></div>
+				<div><tal:block replace="structure comment/actions/render">actions here</tal:block></div>
+				<div><a href="" tal:attributes="href comment/url">ветка</a></div>
+			</div>
+		</div>
+	</body>
+</html>

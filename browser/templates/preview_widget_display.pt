@@ -1,0 +1,1 @@
+<span> <tal:block condition="view/value" content="structure view/value"/></span>

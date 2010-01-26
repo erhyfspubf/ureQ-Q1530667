@@ -1,0 +1,24 @@
+<h1>Теги</h1>
+<div><em>пожалуйста, выберите один или несколько тегов, или добавьте свои.</em></div>
+
+<form action="." tal:attributes="action request/URL" >
+	      <div class="row">
+		        <em tal:condition="view/status"
+		           tal:content="view/status"/>
+		  </div>
+		  <div class="row" tal:repeat="widget view/widgets/values">
+		        <strong tal:condition="widget/error"
+		           tal:content="structure widget/error/render"/>
+		        <input type="text" tal:replace	="structure widget/render"/>
+		  </div>
+		  <div class="action" tal:repeat="action view/actions/values">
+	        <input type="submit" tal:replace="structure action/render"/>
+		  	<strong class="QreatureButtonTitle" tal:content="view/button_name">button name here</strong>
+		  </div>
+		  
+		  <div class="tagCloud">
+ 			<span class="tag" tal:repeat="tag view/getCloud"
+       				tal:attributes="class string:tag${tag/normalized}"
+       				tal:content="tag/name"/>
+		  </div>
+</form>

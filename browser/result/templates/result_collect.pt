@@ -1,0 +1,1 @@
+<div>Набирает <span tal:content="view/gimmeDependValue" class="DependValue" tal:attributes="id view/id">depend value</span> влияний</div>

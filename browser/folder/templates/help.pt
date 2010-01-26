@@ -1,0 +1,20 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/@@standard_macros/page">
+	<body>
+		<div metal:fill-slot="body">     
+			<h1 tal:content="context/login">
+				Title of folder
+			</h1>
+				
+				<tal:block replace="structure provider:qreature.QreatureButtonsMenuVM"/>
+				<div>   
+					Пока здесь пусто. Создавать и редактировать тесты можно используя кнопки меню сверху.
+					В колонке слева можно изменить пароль, email и добавить информацио о себе.
+				</div>
+		</div>
+	</body>
+</html>
+
+

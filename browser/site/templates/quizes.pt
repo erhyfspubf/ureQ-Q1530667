@@ -1,0 +1,24 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/@@standard_macros/page">
+	<body>
+		<div metal:fill-slot="body">
+			<h1>Опубликованные тесты</h1>
+			<div class="Quizes" tal:repeat="quiz view/gimmeQuizes">
+				<div>
+					<a href="quiz.html" tal:attributes="href string:${quiz/author}">
+						<img border="0" src="icon.jpg" tal:attributes="src view/user_icon"/>
+						<span tal:content="quiz/author">author</span>
+					</a>
+				</div>
+				
+				<div>
+					<tal:block replace="structure quiz/quiz_body/render"/>
+				</div>
+			
+			</div>
+		<p></p>
+		</div>
+	</body>
+</html>

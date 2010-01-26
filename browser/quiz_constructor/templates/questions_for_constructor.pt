@@ -1,0 +1,7 @@
+<h2> Вопросы теста</h2>
+<tal:block condition="view/nothing"><em>не создано ни одного вопроса</em> </tal:block>
+<div tal:condition="not:view/nothing">
+	<tal:block repeat="question view/gimmeViewlets">
+		<div tal:replace="structure question/render"/>
+	</tal:block>
+</div>

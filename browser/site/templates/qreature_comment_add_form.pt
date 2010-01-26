@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/@@standard_macros/page">
+  <body>
+  	<div metal:fill-slot="body"> 
+		<tal:block define="parent view/gimmeParent">
+			<tal:block replace="structure parent/render"/>
+		</tal:block>
+		<p></p>
+		<form action="." tal:attributes="action request/URL" class="QreatureForm">
+			<div class="row" tal:repeat="widget view/widgets/values">
+					<label for=""
+			               tal:attributes="for widget/id"
+			               tal:content="widget/label" />
+			        <input type="text" tal:replace="structure widget/render"/>
+			</div>
+
+			<tal:providers replace="structure provider:captcha.CaptchaVM"/>
+			<div class="image_button" tal:repeat="action view/actions/values">
+			        <input type="submit" tal:replace="structure action/render"/>
+					<strong class="QreatureButtonTitle" tal:content="view/button_name">Добавить что-то</strong>
+			</div>
+		 </form>
+		 
+		 
+  	</div>
+  </body>
+</html>

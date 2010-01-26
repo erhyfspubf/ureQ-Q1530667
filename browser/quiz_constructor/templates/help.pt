@@ -1,0 +1,276 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/@@standard_macros/page">
+	<body>
+	
+	<div metal:fill-slot="body">   
+		<a name="top"></a>
+		
+		<tal:block condition="not:view/help">
+			<h1>Конструктор тестов</h1>
+			<tal:block replace="structure provider:qreature.QreatureButtonsMenuVM"/>
+			
+			<p></p>
+			<div>Вы в первый раз открыли конструктор тестов.
+				Прочитайте, пожалуйста, описание механизма создания тестов.
+				В дальнейшем вы сможете вернуться к этой страничке по ссылке
+				<a href="./help.html">Подробная справка</a>
+			</div>
+		</tal:block>
+		
+		<tal:block condition="view/help">
+			<h1>Справка по созданию тестов</h1>
+			<tal:block replace="structure provider:qreature.QreatureButtonsMenuVM"/>
+		</tal:block>
+		
+		
+		
+		
+		<div tal:define="pictures view/gimmePicturesUrls">
+			<p>
+				Для теста нужно создать <strong>вопросы</strong> и <strong>результаты</strong>.
+				После создания вопроса  нужно сделать несколько вариантов <strong>ответа</strong> на него.
+				В зависимости от ответов пользователя, ему будет показан тот или иной результат теста.
+				Вопросы и результаты теста могут содержать теги html, а значит в них можно вставить картинки, музыку
+				или видео, которые хранятся на других серверах.
+			</p>
+			
+			<div>
+				
+				<div>
+					Для выбора результата используются схема <img src="scale.jpg" tal:attributes="src pictures/scale" alt="результат теста шкала"/>
+					<span class="QreatureButtonTitle">Шкала</span>
+					или схема <img src="slots.jpg" tal:attributes="src pictures/slots" alt="результат теста слот"/>
+					<span class="QreatureButtonTitle">Слоты</span>
+				</div>
+				
+				<p></p>
+				<div>
+					Схема <img src="scale.jpg" tal:attributes="src pictures/scale" alt="результат теста шкала"/>
+					<span class="QreatureButtonTitle">Шкала</span> подразумевает, что пользователю начисляются баллы за каждый
+					ответ. Результаты <em>располагаются</em> на шкале.У каждого результата свой интервал на этой шкале.
+				</div>
+				
+				<div>
+					Хороший пример схемы <img src="scale.jpg" tal:attributes="src pictures/scale" alt="результат теста шкала"/>
+					<span class="QreatureButtonTitle">Шкала</span>: определение уровня IQ пользователя.
+					Результаты такого теста выглядят, например, следующим образом:
+					<ul>
+						<li><img src="scale.jpg" tal:attributes="src pictures/scale" alt="результат теста шкала"/> <span class="QreatureButtonTitle">Идиот:</span> 0-25 <img src="value" tal:attributes="src pictures/value" alt="оценка теста шкала"/>
+					<span class="QreatureButtonTitle" >Баллов</span></li>
+						<li><img src="scale.jpg" tal:attributes="src pictures/scale" alt="результат теста шкала"/> <span class="QreatureButtonTitle">Имбецил: </span> 25-50 <img src="value" tal:attributes="src pictures/value" alt="оценка теста шкала"/>
+					<span class="QreatureButtonTitle">Баллов</span></li>
+						<li><img src="scale.jpg" tal:attributes="src pictures/scale" alt="результат теста шкала"/> <span class="QreatureButtonTitle">Дебил:</span>  50-70 <img src="value" tal:attributes="src pictures/value" alt="оценка теста шкала"/>
+					<span class="QreatureButtonTitle">Баллов</span></li>
+						<li>...</li>
+					</ul>	
+				</div>
+				
+				<div>
+					Сначала создайте результат, а потом назначьте ему интервал
+				</div>	
+				
+				<div>
+					<img src="value" tal:attributes="src pictures/value" alt="оценка теста"/>
+					<span class="QreatureButtonTitle">Баллы</span> за каждый ответ назначаются после создания ответа.
+				</div>	
+			</div>
+			<p></p>
+		
+			<div>
+				Схема <img src="slots.jpg" tal:attributes="src pictures/slots" alt="результат теста слот"/>
+				<span class="QreatureButtonTitle">Слоты</span> подразумевает, что пользователь каждым своим ответом влияет
+				на те или другие результаты. Результаты в этом случае совершенно независимы.
+			</div>
+			<div>
+				<div>
+					Хороший пример схемы <img src="slots.jpg" tal:attributes="src pictures/slots" alt="результат теста слот"/>
+					<span class="QreatureButtonTitle">Слоты</span>: определение темперамента пользователя.
+					Результаты такого теста выглядят следующим образом:
+					<ul>
+						<li><img src="slots.jpg" tal:attributes="src pictures/slots" alt="результат теста слот"/> <span class="QreatureButtonTitle">Сангвиник:</span> тип сильный, уравновешенный, с большой подвижностью Нервных процессов</li>
+						<li><img src="slots.jpg" tal:attributes="src pictures/slots" alt="результат теста слот"/> <span class="QreatureButtonTitle">Флегматик:</span> тип сильный, уравновешенный, с малой подвижностью нервных процессов</li>
+						<li><img src="slots.jpg" tal:attributes="src pictures/slots" alt="результат теста слот"/> <span class="QreatureButtonTitle">Холерик:</span> тип сильный, но неуравновешенный, у которого преобладают процессы возбуждения над торможением</li>
+						<li><img src="slots.jpg" tal:attributes="src pictures/slots" alt="результат теста слот"/> <span class="QreatureButtonTitle">Меланхолик:</span>тип слабый, которому свойственно слабое развитие как возбуждения, так и тормозных процессов</li>
+					</ul>	
+				</div>
+				
+				<div>
+					В схеме <img src="slots.jpg" tal:attributes="src pictures/slots" alt="результат теста слот"/>
+					<span class="QreatureButtonTitle">Слоты</span> для сопоставления ответа тому или иному результату (слоту) используется <img src="depends.jpg" tal:attributes="src pictures/depends" alt="оценка теста"/>
+					<span class="QreatureButtonTitle">Влияние</span>.
+					Влияния назначаются после создания ответов. Их может быть несколько
+					(т.е. ответ может сопоставлятся нескольким результатам). Влияния могут иметь разное значение.
+					Т.е. ответ может влиять на один результат в одной степени, а на другой - в другой степени.
+					Например:
+						<dl>
+							<dt>
+								<img src="question.jpg" tal:attributes="src pictures/question" alt="вопрос теста"/><strong>Как вы ведете себя, когда вас обижают коллеги на работе?</strong>
+							</dt>
+							<dd>
+								<div>
+									<img src="answer.jpg" tal:attributes="src pictures/answer" alt="ответ теста"/><strong>Запираюсь в туалете и рыдаю...</strong>
+								</div>
+								<div class="QreatureInlineForm">
+									<img src="depends.jpg" tal:attributes="src pictures/depends" alt="оценка теста"/>
+									<span class="QreatureButtonTitle">Влияние</span> - меланхолик
+									<span class="QreatureButtonTitle">100</span>
+								</div>
+								<div class="QreatureInlineForm">
+									<img src="depends.jpg" tal:attributes="src pictures/depends" alt="оценка теста"/>
+									<span class="QreatureButtonTitle">Влияние</span> - холерик
+									<span class="QreatureButtonTitle">50</span>
+								</div>
+		
+							</dd>
+							
+							<dd>
+								<div>
+									<img src="answer.jpg" tal:attributes="src pictures/answer" alt="ответ теста"/><strong>Попробуйте только меня обидеть...</strong>
+								</div>
+								<div class="QreatureInlineForm">
+									<img src="depends.jpg" tal:attributes="src pictures/depends" alt="оценка теста"/>
+									<span class="QreatureButtonTitle">Влияние</span> - холерик
+									<span class="QreatureButtonTitle">100</span>
+								</div>
+							</dd>
+							
+							<dd>
+								<div>
+									<img src="answer.jpg" tal:attributes="src pictures/answer" alt="ответ теста"/><strong>Это не про меня. Меня очень трудно вывести из себя.</strong>
+								</div>
+								<div class="QreatureInlineForm">
+									<img src="depends.jpg" tal:attributes="src pictures/depends" alt="оценка теста"/>
+					<span class="QreatureButtonTitle">Влияние</span> - флегматик
+					<span class="QreatureButtonTitle">100</span>
+								</div>
+								<div class="QreatureInlineForm">
+									<img src="depends.jpg" tal:attributes="src pictures/depends" alt="оценка теста"/>
+									<span class="QreatureButtonTitle">Влияние</span> - сангвиник
+									<span class="QreatureButtonTitle">50</span>
+								</div>
+							</dd>
+							<dd>
+								...
+							</dd>
+						
+						</dl>
+				</div>
+				<p>
+				Для обеих схем можно задавать количество вопросов на странице (захочется вам показать все вопросы сразу или показывать их, например, по одному).
+				</p>
+
+				Для каждого вопроса, результата и ответа теста задается название, которое не показывается пользователю, и имеет только служебное предназначение. Вопросы сортируются по названиям.
+				Рекомендуется давать названия следующим образом:
+				<ul>
+					<li>10 Вопрос про маму</li>
+					<li>20 Вопрос про папу</li>
+					<li>30 Вопрос про бабушку</li>
+					<li>40 Вопрос про дедушку</li>
+				</ul>
+				Соответсвенно, когда пользователь будет проходить тест, первым вопросом окажется вопрос про маму, вторым - про папу и т.д.
+				Т.е. система отсортирует вопросы по цифрам, в их названии.
+				Не путайте цифры с числами. Т.е. если названия 1,2,3,4,5,...,9,10,11,12 будут отсортированы следующим образом:
+				<ul>
+					<li>1</li>
+					<li>10</li>
+					<li>11</li>
+					<li>12</li>
+					<li>2</li>
+					<li>3</li>
+					<li>4</li>
+					<li>...</li>
+				</ul>
+				Оптимальный способ использовать "десятки" или, даже "сотни": 100,200,300...
+				Тогда если вам захочется добавить вопрос между вопросом 100 и 200, вам нужно забить ему в название
+				цифры 110, 120 и т.п.
+				Тоже самое относится к ответам.
+
+				<p>
+					Можно контролировать также появление вопросов в зависимости от ответов, которые выбрал пользователь, хотя это и не обязательно.
+					Такие тесты, как правило сложнее. Допустим вы хотите реализовать следущую схему:
+					Пользователю предолагается ответить на вопрос какая тема ему ближе: "криогенная техника" или "эзотерическое христианство".
+					Если он предпочитает физику: вы переводите его на вопросы из справочника рефмеханика, если метафизику - на вопросы из книжек по черной магии.
+				</p>
+				Для этого предназначено 
+				<img src="lead.jpg" tal:attributes="src pictures/lead" alt="перемещение"/><span class="QreatureButtonTitle">Перемещение</span>
+				Для каждого ответа, можно создать <img src="lead.jpg" tal:attributes="src pictures/lead" alt="перемещение"/>
+				<span class="QreatureButtonTitle">Перемещение</span>, и указать в нем, какой вопрос будет следующим, если пользователь
+				выберет этот ответ.
+				Например:
+				<dl>
+					<dt>
+						<img src="question.jpg" tal:attributes="src pictures/question" alt="вопрос теста"/><strong>Изпользуете ли Вы продукты Майкрософт?</strong>
+					</dt>
+							<dd>
+								<div> 
+									<img src="answer.jpg" tal:attributes="src pictures/answer" alt="ответ теста"/><strong>Да</strong>
+									<div class="QreatureInlineForm">
+										<img src="lead.jpg" tal:attributes="src pictures/lead"/>
+										<span class="QreatureButtonTitle">Перемещение</span> - MS Office
+									</div>
+								</div>
+
+							</dd>
+							
+							<dd>
+								<div>
+									<img src="answer.jpg" tal:attributes="src pictures/answer" alt="ответ теста"/><strong>Нет</strong>
+									<div class="QreatureInlineForm">
+										<img src="lead.jpg" tal:attributes="src pictures/lead" alt="перемещение"/>
+										<span class="QreatureButtonTitle">Перемещение</span> - OpenOffice
+									</div>
+								</div>
+								
+							</dd>
+					</dl>
+					<p></p>
+
+					<p></p>
+					<div>
+					<strong>Важно!</strong>
+					Если Вы создаете тест с <img src="lead.jpg" tal:attributes="src pictures/lead" alt="перемещение"/><span class="QreatureButtonTitle">перемещениями</span>, 
+					нужно помнить, что:
+						<ul>
+							<li>Первым вопросом будет выбран тот вопрос, на который не ведет ни одно <img src="lead.jpg" alt="перемещение" tal:attributes="src pictures/lead"/><span class="QreatureButtonTitle">перемещение</span></li>
+							<li>Последним вопросом будет выбран тот вопрос (или несколько вопросов),
+								ответы на который не содержат <img src="lead.jpg" tal:attributes="src pictures/lead" alt="перемещение"/><span class="QreatureButtonTitle">перемещений</span>
+								Эти вопросы будут перемещать пользователя на результат
+							</li>
+						</ul>
+					</div>
+					<p></p>
+					
+					<div>
+						Когда Ваш тест будет создан. Нажмите<img src="check.jpg" tal:attributes="src pictures/check" alt="проверка теста"/><span class="QreatureButtonTitle">Проверить</span>
+					</div>
+					<div>
+						Если тест создан без ошибок, Вам станет доступна кнопка
+						<img src="preview.jpg" tal:attributes="src pictures/preview" alt="пройди тест"/><span class="QreatureButtonTitle">Предосмотр</span>(чтобы Вы сами имели возможность пройти свой тест)
+						и кнопка <img src="publish.jpg" tal:attributes="src pictures/publish"/><span class="QreatureButtonTitle">Опубликовать</span>.
+						Пока вы не опубликуете тест, он будет недоступен онлайн для других пользователей.
+						Опубликовав тест, на странице предосмотра появится форма
+						с кодом теста. Этот код - для Вашего сайта или блога.
+					</div>
+					<p></p>
+					<div>
+						Это руководство может показаться Вам очень сложным, но на самом деле,
+						создавать тесты - проще простого. Попробуйте сами...
+					</div>
+					
+					
+					
+						
+			</div>
+			<p>
+				<a href="#top">Наверх</a>
+			</p>
+
+		
+		</div>
+
+
+	</div>
+	</body>
+</html>

@@ -1,0 +1,12 @@
+<h1>Дополнительно</h1>
+<form action="." tal:attributes="action request/URL" >
+	      <div class="row" tal:repeat="widget view/widgets/values">
+		        <strong tal:condition="widget/error"
+		           tal:content="structure widget/error/render"/>
+		        <input type="text" tal:replace="structure widget/render"/>
+		  </div>
+		  <div class="action" tal:repeat="action view/actions/values">
+	        <input type="submit" tal:replace="structure action/render"/>
+		  	<strong class="QreatureButtonTitle" tal:content="view/button_name">button name here</strong>
+		  </div>
+</form>

@@ -1,0 +1,6 @@
+<div tal:define="link view/gimmeLink">
+	<a href="action.html" tal:attributes="href link/url"
+	 tal:content="structure link/image">Image</a>
+	<a href="action.html" tal:attributes="href link/url">
+	<strong class="QreatureButtonTitle" tal:content="link/title">Title</strong></a>
+</div>

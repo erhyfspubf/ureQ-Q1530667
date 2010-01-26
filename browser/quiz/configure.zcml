@@ -1,0 +1,102 @@
+<configure
+xmlns:z3c="http://namespaces.zope.org/z3c"
+xmlns:zope="http://namespaces.zope.org/zope"
+xmlns="http://namespaces.zope.org/browser">
+	
+<!--              Quiz  Forms   -->  
+
+<page
+  for="zope.app.container.interfaces.IAdding"
+  name="AddQuiz.html"
+  class=".quiz.QuizAddForm"
+  permission="qreature.edit_quiz"
+  layer="qreature.skin.interfaces.IQreatureSkin"
+  />
+
+<page
+  for="qreature.interfaces.IQuiz"
+  name="edit.html"
+  class=".quiz.QuizEditForm"
+  permission="qreature.edit_quiz"
+  layer="qreature.skin.interfaces.IQreatureSkin"
+  /> 
+<!--               Quiz   Forms                  -->
+
+<!-- Viewlets for representing Quiz in Quiz Folder-->
+<viewlet
+	name="10QuizShortcut"
+	for="qreature.interfaces.IQuiz"
+  	manager="qreature.browser.interfaces.IQreatureFolderVM"
+  	permission="qreature.edit_quiz"
+	template="./templates/quiz_shortcut.pt"
+	class=".quiz.QuizShortcut"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view="qreature.browser.folder.folder.QuizesForQreatureFolder"
+/>
+<viewlet
+	name="20QuizDecription"
+	for="qreature.interfaces.IQuiz"
+  	manager="qreature.browser.interfaces.IQreatureFolderVM"
+  	permission="qreature.edit_quiz"
+	template="./templates/quiz_description.pt"
+	class=".quiz.QuizDescription"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view="qreature.browser.folder.folder.QuizesForQreatureFolder"
+/>
+<viewlet
+	name="24QuizChecked"
+	for="qreature.browser.user_quiz.interfaces.IChecked"
+  	manager="qreature.browser.interfaces.IQreatureFolderVM"
+  	permission="qreature.edit_quiz"
+	template="./templates/quiz_checked.pt"
+	class=".quiz.QuizChecked"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view="qreature.browser.folder.folder.QuizesForQreatureFolder"
+/>
+<viewlet
+	name="25QuizPublished"
+	for="qreature.browser.user_quiz.interfaces.IPublished"
+  	manager="qreature.browser.interfaces.IQreatureFolderVM"
+  	permission="qreature.edit_quiz"
+	template="./templates/quiz_published.pt"
+	class=".quiz.QuizPublished"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view="qreature.browser.folder.folder.QuizesForQreatureFolder"
+/>
+
+
+<!-- LeftSideBar -->
+<viewlet
+	name="10 AdditionalQuizAdjustment"
+	for="qreature.browser.user_quiz.interfaces.IPublished"
+  	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+  	permission="qreature.edit_quiz"
+	class="qreature.browser.qreature_views.AdditionalQuizAdjustment"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view="qreature.browser.interfaces.IQreatureEditForm"
+/>
+
+<viewlet
+	name="Add quiz help"
+	for="zope.app.container.interfaces.IAdding"
+  	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+  	permission="qreature.edit_quiz"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	template="./templates/add_quiz_help.pt"
+	view = ".quiz.QuizAddForm"
+/>
+
+<viewlet
+	name="20 TagManagerViewlet"
+	for="qreature.browser.user_quiz.interfaces.IPublished"
+  	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+  	permission="qreature.edit_quiz"
+	class="qreature.browser.tagging.TagManagerViewlet"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view="qreature.browser.interfaces.IQreatureEditForm"
+/>
+<!-- LeftSideBar -->
+
+<!-- Result Page-->
+
+</configure>

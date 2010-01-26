@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/@@standard_macros/page">
+	<body>
+		<div metal:fill-slot="body">
+			<h1>Администрирование сайта</h1>
+			<tal:block replace="structure provider:qreature.QreatureButtonsMenuVM"/>
+			<div>
+				<a href="" tal:attributes="href view/gimmeAddNewsUrl">Добавление новости</a>
+			</div>
+			<div>
+				<a href="" tal:attributes="href view/gimmeCommentsUrl">Посмотреть комментарии</a>
+				<i>Всего комментариев:</i><strong tal:content="view/gimmeCommentsCount">Comments Count here</strong>
+			</div>
+			<div>
+				<a href="" tal:attributes="href view/gimmeUsersUrl">Посмотреть пользователей</a>
+				<i>Всего пользователей:</i><strong tal:content="view/gimmeUsersCount">Users Count here</strong>
+			</div>
+			<div>
+				<a href="" tal:attributes="href view/gimmeQuizesUrl">Посмотреть тесты</a>
+				<em>Всего тестов:</em><strong tal:content="view/gimmeQuizesCount">Quizes Count here</strong>
+			</div>
+		</div>
+	</body>
+</html>

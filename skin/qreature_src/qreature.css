@@ -1,0 +1,182 @@
+html {height:100%}
+body {background: white; font-size:80%;font-family: Verdana, sans-serif;
+       color: black;
+       border-top: 0;
+	   width: 99%; height:100%}
+h1 {font-size: 100%;color: #005200;}
+h2 { font-size: 100%;color:#005200; }
+h3 {font-size: 80%;color:#005200;}
+
+
+a {color: rgb(183,105,59); text-decoration: none;}
+
+img {margin-top:2px;margin-left:2px; margin-right:2px}
+
+div.hidden{display:none;}
+
+img.captcha{margin-left: 10em;}
+.small {font-size: 70%;margin-right:1em}
+
+
+div.text_menu {float:left;width: auto;margin-left:0.5em;margin-right:0.5em;}
+div.picture_menu {float:left;width: auto;margin-left:2px;margin-right:2px;}
+
+#page {min-height:100%;}
+
+#site_header{background: rgb(0,0,0);width:100%;} 
+#logo { height:100px;float:left;} 
+
+
+#site_menu{float:left;margin-top:80px;font-weight:bold;background:#cbbeb6;margin-left:60px;
+			height:2em;padding-top:1em;position:absolute; left:19%}
+
+
+#after_site_menu{clear:both;}
+#after_site_header{height:0.8em; clear:both;margin-bottom:2em;}
+
+#leftsidebar {width: 20%; float:left;margin-left: 2%}
+
+
+#content {float:left;width: 52%;margin-left: 2%; margin-right: 2%;}
+#rightsidebar{float:left;width: 19%}
+
+#before_footer {height:3em; clear:both;}
+#ftr {
+background-color:white;
+background-image:url(/++resource++qreature_src/ftr.jpg);
+background-repeat:repeat-x;
+margin:0 auto;
+position:relative;
+text-align:center;
+width:96%;
+height:3em; margin-top:-3em; position:relative;
+color: rgb(197,149,100);text-align:right;
+}
+
+#footer{background: rgb(0,0,0);
+		height:3em; margin-top:-3em; position:relative;
+		width:100%;color: rgb(197,149,100);text-align:right;}
+
+
+div.CommentableHead{}
+div.CommentableTail{margin-left: 5%;}
+div.Counter{padding-top: 0.3%;}
+
+/* Pagable digits images*/
+#Pagable
+{margin-top:20px;}
+
+
+/* Image Button*/
+#image_button {
+  width:13em;
+  line-height:1em;
+  margin-left:10em;
+  text-align:left;
+  margin-top:2px;
+}
+
+/* Text after Image Button*/
+.QreatureButtonTitle{color: rgb(183,105,59);margin-right:1em;}
+
+.QreatureForm label{
+  float:left;
+  width:13em;
+  line-height:1em;
+  margin-right:0.1em;
+  text-align:left;
+}
+
+/* Fields, where the content is rather big*/
+#qreature_form-widgets-title
+{width:20em;}
+#qreature_form-widgets-body
+{height:20em; width:36em;}
+
+
+
+
+/* Edit form in leftsidebar */
+.QreatureFolderEditForm input{
+  width:100%; margin-bottom:0.5em;
+}
+#qreature_form-widgets-about
+{height:20em; width:100%;}
+#qreature_form-buttons-apply
+{width:20px;}
+
+div.quiz_in_folder {background:#fefdf0;}
+div.quiz_description {margin-left:25px;}
+div.quiz_checked {margin-left:25px;}
+div.quiz_published {margin-left:25px;}
+
+.quiz_question{margin-top:1em;color: rgb(200,149,83);font-weight:bold;}
+.quiz_answer{margin-top:1em;color: rgb(200,149,83);font-weight:bold;font-style:oblique;}
+
+
+/* Results table*/
+td.ResultForConstructor {width:15%;}
+
+/*Interval form */
+.IntervalFormInput input{width:2em;}
+.QuizAnswers {margin-left:20%;}
+
+
+/* Inline Form */
+.QreatureInlineForm {margin-left:20%;}
+.QreatureInlineFormInput input{width:2em;}
+
+div.NoRelation{margin-left:10%;margin-top:2%;}
+div.NoLead{margin-left:10%;margin-top:2%;}
+
+.answer {margin-top:1%;}
+.question {margin-top:3%;}
+
+/* User quiz */
+.user_quiz_question {margin-top:6%;margin-bottom:2%}
+#proceed {margin-top:6%;}
+
+.RightButtons{margin-top:6%;text-align:center;}
+
+.source_code div {margin-top:5%;}
+.source_code input {height:1em; width:20em;}
+ textarea
+	{height:18em; width:40em;}
+#qreature_form-widgets-tags {height:3em; width:14em;}
+	
+div.quiz_actions {margin-top:1%; margin-bottom:2em;}
+
+div.news {margin-top:2em; margin-bottom:2em;}
+
+#hdr {
+background-color:white;
+background-image:url(/++resource++qreature_src/hdr.jpg);
+background-repeat:repeat-x;
+margin:0 auto;
+position:relative;
+text-align:center;
+width:96%;
+}
+
+
+.GoogImage {width:100%;}
+
+.tag1 {font-size: 100%;} /*color: #cabcb1;*/
+.tag2 {font-size: 120%;}
+.tag3 {font-size: 140%;}
+.tag4 {font-size: 160%;}
+.tag5 {font-size: 180%;}
+.tag6 {font-size: 200%;}
+
+span.tag1 {color: #cabcb1;}
+span.tag2 {color: #cabcb1;}
+span.tag3 {color: #cabcb1;}
+span.tag4 {color: #cabcb1;}
+span.tag5 {color: #cabcb1;}
+span.tag6 {color: #cabcb1;}
+
+h1.about {background:#eeeeb1;}
+div.Quizes {margin-top:2em; margin-bottom:2em;}
+
+div.XMLDownload {margin-bottom:1em;}
+div.QuizAsXML {margin-bottom:2em;}

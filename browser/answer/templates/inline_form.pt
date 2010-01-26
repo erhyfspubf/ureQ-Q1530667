@@ -1,0 +1,22 @@
+
+<div class="QreatureInlineForm">
+	<div tal:content="view/gimmeTip">tip for this form</div>
+	<form action="." tal:attributes="action view/gimmeAction" >
+	    	
+			<tal:block define="picture view/picture">
+					<img src="picture.jpg" tal:attributes="src picture"/>
+			</tal:block>
+			
+			<span class="row" tal:repeat="widget view/widgets/values">
+		        <strong tal:condition="widget/error"
+		           tal:content="structure widget/error/render"/>
+				<span class="QreatureInlineFormInput">
+					<input type="text" tal:replace="structure widget/render"/>
+				</span>
+			</span>
+		
+	    <span class="action" tal:repeat="action view/actions/values">
+	        <input type="submit" tal:replace="structure action/render"/>
+		</span>
+    </form>
+</div>

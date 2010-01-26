@@ -1,0 +1,23 @@
+<h1 class="about">Тест <-> XML</h1>
+<div class="QuizAsXML">
+		<div><a href="xml_help.html">Подробнее про формат файла</a></div>
+		<form action="." tal:attributes="action request/URL" method="post" enctype="multipart/form-data"
+		onsubmit="return confirm('Внимание! Все данные теста будут уничтожены. Тест будет создан заново из данных загружаемого файла.');">
+		  <div class="row" tal:repeat="widget view/widgets/values">
+	        <strong tal:condition="widget/error"
+	           tal:content="structure widget/error/render"/>
+			<label for=""
+	               tal:attributes="for widget/id"
+	               tal:content="widget/label" />
+	        <input type="text" tal:replace="structure widget/render"/>
+		  </div>
+		  <div class="action" tal:repeat="action view/actions/values">
+	        <input type="submit"
+			 tal:replace="structure action/render"/>
+			 <strong class=QreatureButtonTitle>Загрузить тест из файла</strong>
+		  </div>
+		  <div tal:condition="view/status">
+	        <strong tal:content="view/status"/>
+	      </div>
+	    </form>
+</div>

@@ -1,0 +1,178 @@
+<configure
+xmlns:zope="http://namespaces.zope.org/zope"
+xmlns="http://namespaces.zope.org/browser"
+xmlns:jsonrpc="http://namespaces.zope.org/jsonrpc">
+
+
+<!--              Answer Forms     -->  
+<page
+  for="zope.app.container.interfaces.IAdding"
+  name="AddQuizAnswer.html"
+  class=".answer.QuizAnswerAddForm"
+  permission="qreature.edit_quiz"
+  layer="qreature.skin.interfaces.IQreatureSkin"
+  />
+  
+ <page
+  for="qreature.interfaces.IQuizAnswer"
+  name="edit.html"
+  class=".answer.QuizAnswerEditForm"
+  permission="qreature.edit_quiz"
+  layer="qreature.skin.interfaces.IQreatureSkin"
+  />  
+  
+<!--               Answer Forms                    -->
+
+<!-- LeftSideBar -->
+
+<viewlet
+	name="Add answer help"
+	for="zope.app.container.interfaces.IAdding"
+  	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+  	permission="qreature.edit_quiz"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	template="./templates/add_answer_help.pt"
+	view = ".answer.QuizAnswerAddForm"
+/>
+<viewlet
+	name="Edit answer help"
+	for="qreature.interfaces.IQuizAnswer"
+  	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+  	permission="qreature.edit_quiz"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	template="./templates/add_answer_help.pt"
+	view = ".answer.QuizAnswerEditForm"
+/>
+
+<!-- LeftSideBar -->
+
+<!-- Answer For Question-->
+<viewlet
+	name="10AnswerForConstructorViewlet"
+	for="qreature.interfaces.IQuizAnswer"
+  	manager="qreature.browser.interfaces.IQreatureGeneralVM"
+  	permission="qreature.edit_quiz"
+	class=".answer.AnswerForConstructor"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view="..question.question.AnswersForQuestion"
+/>
+<viewlet
+	name="15AnswerIdForConstructorViewlet"
+	for="qreature.interfaces.IQuizAnswer"
+  	manager="qreature.browser.interfaces.IQreatureGeneralVM"
+  	permission="qreature.edit_quiz"
+	class=".answer.AnswerIdForConstructor"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view="..question.question.AnswersForQuestion"
+/>
+
+
+<viewlet
+	name="20AnswerBodyForConstructorViewlet"
+	for="qreature.interfaces.IQuizAnswer"
+  	manager="qreature.browser.interfaces.IQreatureGeneralVM"
+  	permission="qreature.edit_quiz"
+	class=".answer.AnswerBodyForConstructor"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view="..question.question.AnswersForQuestion"
+/>
+<!-- Existing relations for answer -->
+<viewlet
+	name="30RelationsForAnswerViewlet"
+	for="qreature.interfaces.IQuizAnswer"
+  	manager="qreature.browser.interfaces.IQreatureGeneralVM"
+  	permission="qreature.edit_quiz"
+	class=".answer.RelationsForAnswer"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view="..question.question.AnswersForQuestion"
+/>
+
+<viewlet
+	name="31LeadForAnswerViewlet"
+	for="qreature.interfaces.IQuizAnswer"
+  	manager="qreature.browser.interfaces.IQreatureGeneralVM"
+  	permission="qreature.edit_quiz"
+	class=".answer.LeadForAnswer"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view="..question.interfaces.IAnswersForQuestion"
+/>
+
+<!-- Existing relations for answer -->
+
+
+<!-- Relations forms for answer -->
+<viewlet
+	name="22AddingValue"
+	for="qreature.interfaces.IQuizAnswer"
+  	manager="qreature.browser.interfaces.IQreatureGeneralVM"
+  	permission="qreature.edit_quiz"
+	class=".answer.AnswerValueAddForm"
+	layer="qreature.skin.interfaces.IScaleLayer"
+	view=".interfaces.IRelationsForAnswer"
+/>
+<viewlet
+	name="23AddingDepends"
+	for="qreature.interfaces.IQuizAnswer"
+  	manager="qreature.browser.interfaces.IQreatureGeneralVM"
+  	permission="qreature.edit_quiz"
+	class=".answer.AnswerDependsAddForm"
+	layer="qreature.skin.interfaces.ISlotLayer"
+	view=".interfaces.IRelationsForAnswer"
+/>
+<viewlet
+	name="24AddingLeads"
+	for="qreature.interfaces.IQuizAnswer"
+  	manager="qreature.browser.interfaces.IQreatureGeneralVM"
+  	permission="qreature.edit_quiz"
+	class=".answer.AnswerLeadsAddForm"
+	layer="qreature.skin.interfaces.ILeadedLayer"
+	view=".interfaces.ILeadForAnswer"
+/> 
+<!-- Relations forms for answer-->
+
+
+<!-- Answer For Constructor-->
+
+
+<viewlet
+	name="20EditValue"
+	for="qreature.interfaces.IAnswerValue"
+  	manager="qreature.browser.interfaces.IQreatureGeneralVM"
+  	permission="qreature.edit_quiz"
+	class=".answer.AnswerValueEditForm"
+	layer="qreature.skin.interfaces.IScaleLayer"
+	view=".interfaces.IRelationsForAnswer"
+/>
+<viewlet
+	name="30EditDepends"
+	for="qreature.interfaces.IAnswerDepends"
+  	manager="qreature.browser.interfaces.IQreatureGeneralVM"
+  	permission="qreature.edit_quiz"
+	class=".answer.AnswerDependsEditForm"
+	layer="qreature.skin.interfaces.ISlotLayer"
+	view=".interfaces.IRelationsForAnswer"
+/> 
+
+<viewlet
+	name="40EditLeads"
+	for="qreature.interfaces.IAnswerLeads"
+  	manager="qreature.browser.interfaces.IQreatureGeneralVM"
+  	permission="qreature.edit_quiz"
+	class=".answer.AnswerLeadsEditForm"
+	layer="qreature.skin.interfaces.ILeadedLayer"
+	view=".interfaces.ILeadForAnswer"
+/>
+<!-- Leads Depends and values-->
+
+<zope:resourceLibrary name="answer">
+	<directory source="../answer" include="clone_select.js flash_edit.js"/>
+</zope:resourceLibrary> 
+
+<jsonrpc:view
+    for="qreature.interfaces.IQuiz"
+    permission="qreature.edit_quiz"
+    methods="flashEditAnswer"
+    class=".async.Async"
+/>
+
+</configure>

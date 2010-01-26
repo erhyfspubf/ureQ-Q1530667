@@ -1,0 +1,5 @@
+<div class="quiz_actions">
+	<tal:block define="viewlets view/viewlets">
+		<tal:block replace="structure viewlets/render"/>
+	</tal:block>
+</div>

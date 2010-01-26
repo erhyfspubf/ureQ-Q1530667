@@ -1,0 +1,14 @@
+<configure
+xmlns="http://namespaces.zope.org/zope">
+
+<permission
+  id="qreature.idle_perm"
+  title="Create Account"
+/>
+
+<permission
+  id="qreature.edit_quiz"
+  title="Create and Edit Quizes"
+/>
+
+</configure>

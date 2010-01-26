@@ -1,0 +1,16 @@
+<h2> Результаты теста</h2>
+<div tal:condition="not:view/nothing">
+	<table>
+		<tal:block repeat="row view/rows">
+			<tr>
+				<tal:block repeat="result view/gimmeViewlets">
+					<td tal:content="structure result/render" class="ResultForConstructor">result</td>
+				</tal:block>
+				
+			</tr>
+		</tal:block>
+	</table>
+</div>
+<div tal:condition="view/nothing">
+	<em>не создано результатов</em>
+</div>

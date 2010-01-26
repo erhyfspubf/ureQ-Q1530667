@@ -1,0 +1,430 @@
+<configure
+xmlns="http://namespaces.zope.org/zope"
+xmlns:browser="http://namespaces.zope.org/browser">
+
+ 
+  <!--       QreatureSite          -->
+  <interface
+      interface=".interfaces.IQreatureSite"
+      type="zope.app.content.interfaces.IContentType"
+    />
+
+  <class class="qreature.site.QreatureSite">
+     
+	<implements
+        interface="zope.annotation.interfaces.IAttributeAnnotatable
+					captcha.interfaces.ICaptchable
+					multi_traverser.interfaces.IMultiTraversed
+					pagable.interfaces.IPagable
+					zope.app.container.interfaces.IContainerNamesContainer
+					feedable.interfaces.IFeedable"
+		/>
+	<factory
+        id="qreature.site.QreatureSite"
+        description="Qreature Site"/>
+    <require
+        permission="zope.Public"
+        interface=".interfaces.IQreatureSite"/>
+    <require
+        permission="zope.Public"
+        set_schema=".interfaces.IQreatureSite"/>
+  </class>
+  
+   <!--       QreatureSite          -->
+ 
+ 
+ 
+ <!--       QreatureFolder           -->
+  <interface
+      interface=".interfaces.IQreatureFolder"
+      type="zope.app.content.interfaces.IContentType"
+    />
+
+  <class class="qreature.folder.QreatureFolder">
+     
+	<implements
+        interface="zope.annotation.interfaces.IAttributeAnnotatable
+							multi_traverser.interfaces.IMultiTraversed
+							pagable.interfaces.IPagable"/>
+	
+	<factory
+        id="qreature.folder.QreatureFolder"
+        description="Quiz Folder"/>
+    <require
+        permission="zope.Public"
+        interface=".interfaces.IQreatureFolder"/>
+    <require
+        permission="zope.Public"
+        set_schema=".interfaces.IQreatureFolder"/>
+  </class>
+  
+  
+  
+   <!--       Quiz           -->
+  <interface
+      interface=".interfaces.IQuiz"
+      type="zope.app.content.interfaces.IContentType"
+    />
+
+  <class class="qreature.quiz.Quiz">
+     
+	<implements
+        interface="zope.annotation.interfaces.IAttributeAnnotatable
+					multi_traverser.interfaces.IMultiTraversed
+					pagable.interfaces.IPagable
+					captcha.interfaces.ICaptchable
+				    commentable.interfaces.ICommentable
+				    countable.interfaces.ICounterHolder
+					qreature.interfaces.IQreatureTaggable"
+	/> 								 
+	
+	<factory
+        id="qreature.quiz.Quiz"
+        description="Quiz"/>
+    <require
+        permission="zope.Public"
+        interface=".interfaces.IQuiz"/>
+    <require
+        permission="qreature.edit_quiz"
+        set_schema=".interfaces.IQuiz"/>
+  </class>
+  
+  <!--       QuizQuestion           -->
+  <interface
+      interface=".interfaces.IQuizQuestion"
+      type="zope.app.content.interfaces.IContentType"
+    />
+
+  <class class="qreature.quiz.QuizQuestion">
+     
+	<implements
+        interface="zope.annotation.interfaces.IAttributeAnnotatable"
+		/>
+	<factory
+        id="qreature.quiz.QuizQuestion"
+        description="Quiz Question"/>
+    <require
+        permission="zope.Public"
+        interface=".interfaces.IQuizQuestion"/>
+    <require
+        permission="qreature.edit_quiz"
+        set_schema=".interfaces.IQuizQuestion"/>
+  </class>
+  
+    <!--       QuizAnswer           -->
+  <interface
+      interface=".interfaces.IQuizAnswer"
+      type="zope.app.content.interfaces.IContentType"
+    />
+
+  <class class="qreature.quiz.QuizAnswer">
+     
+	<implements
+        interface="zope.annotation.interfaces.IAttributeAnnotatable"/>
+	
+	<factory
+        id="qreature.quiz.QuizAnswer"
+        description="Quiz Answer"/>
+    <require
+        permission="zope.Public"
+        interface=".interfaces.IQuizAnswer"/>
+    <require
+        permission="qreature.edit_quiz"
+        set_schema=".interfaces.IQuizAnswer"/>
+  </class>
+
+    <!--       AnswerDepends           -->
+  <interface
+      interface=".interfaces.IAnswerDepends"
+      type="zope.app.content.interfaces.IContentType"
+    />
+
+  <class class="qreature.quiz.AnswerDepends">
+     
+	<implements
+        interface="zope.annotation.interfaces.IAttributeAnnotatable"/>
+	<factory
+        id="qreature.quiz.AnswerDepends"
+        description="Answer Leads"/>
+    <require
+        permission="qreature.edit_quiz"
+        interface=".interfaces.IAnswerDepends"/>
+    <require
+        permission="qreature.edit_quiz"
+        set_schema=".interfaces.IAnswerDepends"/>
+  </class>
+  
+  
+      <!--       AnswerLeads           -->
+  <interface
+      interface=".interfaces.IAnswerLeads"
+      type="zope.app.content.interfaces.IContentType"
+    />
+
+  <class class="qreature.quiz.AnswerLeads">
+     
+	<implements
+        interface="zope.annotation.interfaces.IAttributeAnnotatable"/>
+	
+	<factory
+        id="qreature.quiz.AnswerLeads"
+        description="Answer Leads"/>
+    <require
+        permission="qreature.edit_quiz"
+        interface=".interfaces.IAnswerLeads"/>
+    <require
+        permission="qreature.edit_quiz"
+        set_schema=".interfaces.IAnswerLeads"/>
+  </class>
+  
+   <!--       QuizResult           -->
+  <interface
+      interface=".interfaces.IQuizResult"
+      type="zope.app.content.interfaces.IContentType"
+    />
+
+  <class class="qreature.quiz.QuizResult">
+     
+	<implements
+        interface="zope.annotation.interfaces.IAttributeAnnotatable"
+		/>
+	
+	<factory
+        id="qreature.quiz.QuizResult"
+        description="Quiz Result"/>
+    <require
+        permission="zope.Public"
+        interface=".interfaces.IQuizResult"/>
+    <require
+        permission="zope.Public"
+        set_schema=".interfaces.IQuizResult"/>
+  </class>
+
+
+
+<subscriber handler=".eventhandlers.setQreatureSiteSiteManager"/>
+<subscriber handler=".eventhandlers.setQreatureSiteUtilities"/>
+<subscriber handler=".eventhandlers.setQreatureFolderSiteManager"/>
+<subscriber handler=".eventhandlers.setQreatureFolderUtilities"/>
+<subscriber handler=".eventhandlers.setQreatureSiteManager"/>
+<subscriber handler=".eventhandlers.setQuizUtilities"/>
+
+<include package=".browser"/>
+<include package=".skin"/>
+<include file="security.zcml"/>
+
+<adapter factory=".adapters.QreatureSiteNameChooser"/>
+
+<subscriber handler=".eventhandlers.grantRoleToQuizEditor"/>
+
+
+<!--<adapter factory=".adapters.QuizNameChooser"/> -->
+<adapter factory=".adapters.QuizContainerNameChooser"/>
+
+
+<subscriber handler=".eventhandlers.changePassword"/>
+
+<utility 
+          component=".utilities.flatten"
+          name="Flatten"
+          provides="qreature.interfaces.IQreatureUtility"/>
+<utility 
+          component=".utilities.percentage"
+          name="Percentage"
+          provides="zope.schema.interfaces.IVocabularyFactory"/>
+
+<utility 
+          component=".utilities.depends_voc"
+          name="Quiz Results"
+          provides="zope.schema.interfaces.IVocabularyFactory"/>
+
+<utility 
+          component=".utilities.leads_voc"
+          name="Quiz Leads"
+          provides="zope.schema.interfaces.IVocabularyFactory"/>
+
+<utility 
+          component=".utilities.answers_voc"
+          name="Quiz Answers"
+          provides="zope.schema.interfaces.IVocabularyFactory"/>
+
+
+
+
+
+
+<subscriber handler=".eventhandlers.removeIdsHolders"/>
+
+
+
+
+<!--       AnswerValue           -->
+  <interface
+      interface=".interfaces.IAnswerValue"
+      type="zope.app.content.interfaces.IContentType"
+    />
+
+  <class class="qreature.quiz.AnswerValue">
+     
+	<implements
+        interface="zope.annotation.interfaces.IAttributeAnnotatable"/>
+	
+	<factory
+        id="qreature.quiz.AnswerValue"
+        description="Answer Value"/>
+    <require
+        permission="qreature.edit_quiz"
+        interface=".interfaces.IAnswerValue"/>
+    <require
+        permission="qreature.edit_quiz"
+        set_schema=".interfaces.IAnswerValue"/>
+  </class>
+<!--       AnswerValue           -->  
+
+
+<subscriber handler=".eventhandlers.cleanPrincipal"
+/>
+
+<localUtility class=".utilities.JustRegisteredCredentialPlugin">
+
+    <require
+        permission="zope.ManageServices"
+        interface="zope.app.authentication.session.IBrowserFormChallenger"
+        set_schema="zope.app.authentication.session.IBrowserFormChallenger" />
+
+</localUtility>
+<browser:addMenuItem
+      title="JustRegisteredCredentialPlugin"
+      class=".utilities.JustRegisteredCredentialPlugin"
+      permission="zope.ManageServices"
+/>
+
+
+  <!--       QreatureNews          -->
+  <interface
+      interface=".interfaces.IQreatureNews"
+      type="zope.app.content.interfaces.IContentType"
+    />
+
+  <class class="qreature.site.QreatureNews">
+     
+	<implements
+        interface="zope.annotation.interfaces.IAttributeAnnotatable
+				   captcha.interfaces.ICaptchable
+				   commentable.interfaces.ICommentable
+				   countable.interfaces.ICounterHolder
+				   pagable.interfaces.IPagable
+				   multi_traverser.interfaces.IMultiTraversed"/>
+	
+	<factory
+        id="qreature.site.QreatureNews"
+        description="Qreature News"/>
+    <require
+        permission="zope.Public"
+        interface=".interfaces.IQreatureNews"/>
+    <require
+        permission="zope.ManageContent"
+        set_schema=".interfaces.IQreatureNews"/>
+  </class>
+  
+   <!--       QreatureNews         -->
+   
+  <!--       QreatureComment          -->
+  <interface
+      interface=".interfaces.IQreatureComment"
+      type="zope.app.content.interfaces.IContentType"
+    />
+
+  <class class="qreature.site.QreatureComment">
+     
+	<implements
+        interface="zope.annotation.interfaces.IAttributeAnnotatable
+				   captcha.interfaces.ICaptchable
+				   commentable.interfaces.ICommentable
+				   commentable.interfaces.IComment
+				   countable.interfaces.ICountable
+				   multi_traverser.interfaces.IMultiTraversed
+				   "/>
+	
+	<factory
+        id="qreature.site.QreatureComment"
+        description="Qreature Comment"/>
+    <require
+        permission="zope.Public"
+        interface=".interfaces.IQreatureComment"/>
+    <require
+        permission="zope.ManageServices"
+        set_schema=".interfaces.IQreatureComment"/>
+  </class>
+  
+   <!--       QreatureComment         -->
+
+<adapter factory=".adapters.QuizSearchableText"/>
+
+
+<class class=".utilities.CacheCleaner">
+	<implements
+        interface=".interfaces.ICacheCleaner"/>
+	
+	<factory
+	    id="captcha.explorer.CacheCleaner"
+	    description="Cache Cleaner"/>
+
+	<require
+	    permission="zope.ManageServices"
+	    set_schema=".interfaces.ICacheCleaner"/>
+	<require
+	    permission="zope.ManageServices"
+	    interface=".interfaces.ICacheCleaner"/>
+</class>
+
+
+
+<class class="qreature.utilities.QreatureCatalog">
+    <require
+        permission="zope.ManageServices"
+        interface="zope.app.catalog.interfaces.ICatalog"/>
+    <require
+        permission="zope.ManageServices"
+        set_schema="zope.app.catalog.interfaces.ICatalog"/>
+  </class>
+
+ 
+<subscriber handler = ".eventhandlers.init_cache_cleaner"/>
+
+<subscriber handler = ".eventhandlers.removeQreatureIntIdSubscriber"/>
+<subscriber handler = ".eventhandlers.addQreatureIntIdSubscriber"/>
+
+<subscriber
+      handler=".eventhandlers.qreatureReindexDocSubscriber"
+      for="zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+      />
+<subscriber handler = ".eventhandlers.addAnswerValue"/>
+
+<adapter factory=".adapters.QreatureSiteFeedableSequencer"/>
+<adapter factory=".adapters.QreatureSiteChanelData"/>
+<adapter factory=".adapters.QreatureNewsItemData"/>
+
+<subscriber handler=".eventhandlers.countComments"/>
+<subscriber handler=".eventhandlers.discountComments"/>
+
+<subscriber handler=".utilities.clean_caches"/>
+
+<!--
+<subscriber handler=".adapters.registerBaseTags"/> -->
+
+<adapter
+	factory=".adapters.QreatureTagging"
+	 />
+
+<adapter 
+	factory=".adapters.QreatureUserTagging"
+	 />
+	 
+<subscriber handler=".adapters.removeItemSubscriber"/>
+
+<adapter factory=".xml.QuizAsXML"/>
+
+</configure>
+ 
+ 

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="quiz">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="title" type="xs:string" /> 
+				<xs:element name="content" type="xs:string"/>
+				<xs:element name="schema" type="xs:string"/>
+				<xs:element name="questions_per_page" type="xs:integer"/>
+				<xs:element name="result">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="title" type="xs:string" /> 
+							<xs:element name="content" type="xs:string"/>
+							<xs:element name="border" type="xs:integer"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="question">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="title" type="xs:string" /> 
+							<xs:element name="content" type="xs:string"/>
+							<xs:element name="answer">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="title" type="xs:string" /> 
+										<xs:element name="content" type="xs:string"/>
+										<xs:element name="value" type="xs:integer"/>
+										<xs:element name="depend" type="xs:integer">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="result_title" type="xs:string"/>
+													<xs:element name="value" type="xs:integer"/>
+												<xs:sequence>
+											<xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

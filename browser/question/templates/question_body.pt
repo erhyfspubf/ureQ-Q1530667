@@ -1,0 +1,8 @@
+<div class="TexturedQuestion" tal:attributes="id view/gimmeId">
+	<div tal:define="pictures view/gimmePicturesUrls">
+		<img class="FlashEditQuestion" tal:attributes="src pictures/flash_edit"/>
+		<img class="FlashApplyQuestion" tal:attributes="src pictures/flash_apply" style="display:none;"/>
+	</div>
+	
+	<div tal:content="context/body" class="QuestionBody">body</div>
+</div>

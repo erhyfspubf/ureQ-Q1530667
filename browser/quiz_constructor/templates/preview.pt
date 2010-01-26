@@ -1,0 +1,12 @@
+<div class="RightButtons">
+
+	<h2>Предосмотр</h2>
+	<div>
+		<tal:block define="link view/gimmeLink">
+			<a href="action.html" tal:attributes="href link/url">
+			 	<span tal:replace="structure link/image">Image</span>
+			</a>
+		</tal:block>
+	</div>
+
+</div>

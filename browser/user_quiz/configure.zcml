@@ -1,0 +1,319 @@
+<configure
+xmlns:z3c="http://namespaces.zope.org/z3c"
+xmlns:zope="http://namespaces.zope.org/zope"
+xmlns="http://namespaces.zope.org/browser">
+
+
+<!-- Widgets-->
+<z3c:widgetTemplate
+	mode="input"
+	template="./templates/previous_answers_widget.pt"
+	widget=".widgets.PreviousAnswersWidget"
+  	layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+
+<z3c:widgetTemplate
+	mode="input"
+	template="./templates/answers_widget.pt"
+	widget=".widgets.AnswerWidget"
+  	layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+<z3c:widgetTemplate
+	mode="display"
+	template="./templates/question_widget.pt"
+	widget=".widgets.QuestionWidget"
+  	layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+<!-- Widgets-->
+
+
+
+
+
+<zope:adapter
+  factory=".widgets.questionWidget"
+  provides="z3c.form.interfaces.IFieldWidget"
+/>
+
+<zope:adapter
+  factory=".widgets.answerWidget"
+  provides="z3c.form.interfaces.IFieldWidget"
+/>
+
+<zope:adapter
+  factory=".widgets.previousAnswersWidget"
+  provides="z3c.form.interfaces.IFieldWidget"
+/>
+
+<!-- Check Quiz -->
+<page
+	for="qreature.browser.user_quiz.interfaces.ISinglePage"
+	name="go.html"
+	class=".single_page.SinglePageQuizForm"
+	permission="qreature.edit_quiz"
+	layer="qreature.skin.interfaces.ICheckedLayer"
+/>
+
+<page
+  for="qreature.browser.user_quiz.interfaces.IMultiPage"
+  name="go.html"
+  class=".multi_page.MultiPageQuizForm"
+  permission="qreature.edit_quiz"
+  layer="qreature.skin.interfaces.ICheckedLayer"
+/>
+
+<page
+  for="qreature.browser.user_quiz.interfaces.IGroupPage"
+  name="go.html"
+  class=".group_page.GroupPageQuizForm"
+  permission="qreature.edit_quiz"
+  layer="qreature.skin.interfaces.ICheckedLayer"
+/>
+
+<!-- Published Quiz -->
+<page
+	for="qreature.browser.user_quiz.interfaces.ISinglePage"
+	name="go.html"
+	class=".single_page.SinglePageQuizForm"
+	permission="zope.View"
+	layer="qreature.skin.interfaces.IPublishedLayer"
+/>
+
+<page
+  for="qreature.browser.user_quiz.interfaces.IMultiPage"
+  name="go.html"
+  class=".multi_page.MultiPageQuizForm"
+  permission="zope.View"
+  layer="qreature.skin.interfaces.IPublishedLayer"
+/>
+
+<page
+  for="qreature.browser.user_quiz.interfaces.IGroupPage"
+  name="go.html"
+  class=".group_page.GroupPageQuizForm"
+  permission="zope.View"
+  layer="qreature.skin.interfaces.IPublishedLayer"
+/>
+
+<!-- Result Page -->
+
+
+
+
+
+
+<viewlet
+	name="05AuthorInfo"
+	for="qreature.interfaces.IQuizContainer"
+	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+	class=".author.AuthorInfo"
+	template="./templates/author_info.pt"
+	permission="zope.View"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view="qreature.browser.interfaces.IPreviewForm"
+/>
+
+<viewlet
+	name="10OpenValues"
+	for="qreature.interfaces.IQuizResult"
+	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+	class=".result.OpenValues"
+	template="./templates/open_values.pt"
+	permission="zope.View"
+	layer="qreature.skin.interfaces.IOpenValuesLayer"
+	view="qreature.browser.interfaces.IPreviewForm"
+/>
+
+<viewlet
+	name="15OpenResults"
+	for="qreature.interfaces.IQuizResult"
+	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+	class=".result.OpenResults"
+	template="./templates/open_results.pt"
+	permission="zope.View"
+	layer="qreature.skin.interfaces.IOpenResultsLayer"
+	view="qreature.browser.interfaces.IPreviewForm"
+/>
+
+<viewlet
+	name="20Chart"
+	for="qreature.interfaces.IQuizResult"
+	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+	class=".result.Chart"
+	permission="zope.View"
+	layer="qreature.skin.interfaces.IOpenResultsLayer"
+	view="qreature.browser.interfaces.IPreviewForm"
+/>
+
+<!-- Result Page  -->
+
+
+
+<viewlet
+	name="05AuthorInfo"
+	for="qreature.interfaces.IQuizContainer"
+	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+	class=".author.AuthorInfo"
+	template="./templates/author_info.pt"
+	permission="zope.View"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".interfaces.IOtherResult"
+/>
+<viewlet
+	name="10OpenResults"
+	for="qreature.interfaces.IQuizResult"
+	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+	class=".result.OpenResults"
+	template="./templates/open_results.pt"
+	permission="zope.View"
+	layer="qreature.skin.interfaces.IOpenResultsLayer"
+	view=".interfaces.IOtherResult"
+/>
+
+<viewlet
+	name="15Chart"
+	for="qreature.interfaces.IQuizResult"
+	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+	class=".result.Chart"
+	permission="zope.View"
+	layer="qreature.skin.interfaces.IOpenResultsLayer"
+	view=".interfaces.IOtherResult"
+/>
+
+<viewlet
+	name="05AuthorInfo"
+	for="qreature.interfaces.IQuiz"
+	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+	class=".author.AuthorInfo"
+	template="./templates/author_info.pt"
+	permission="zope.View"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view="commentable.interfaces.IThreadView"
+/>
+<viewlet
+	name="10OpenResults"
+	for="qreature.interfaces.IQuiz"
+	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+	class=".result.OpenResults"
+	template="./templates/open_results.pt"
+	permission="zope.View"
+	layer="qreature.skin.interfaces.IOpenResultsLayer"
+	view="commentable.interfaces.IThreadView"
+/>
+<viewlet
+	name="15Chart"
+	for="qreature.interfaces.IQuiz"
+	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+	class=".result.Chart"
+	permission="zope.View"
+	layer="qreature.skin.interfaces.IOpenResultsLayer"
+	view="commentable.interfaces.IThreadView"
+/>
+
+
+<!-- Result Page-->
+
+<page
+	name="result.html"
+	for="qreature.interfaces.IQuiz"
+	class=".result.Result"
+	permission="zope.View"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+
+<viewlet
+	name="10 About"
+  	for="qreature.interfaces.IQuiz"
+	manager="qreature.skin.interfaces.IQreatureLeftSideBarVM"
+  	permission="zope.View"
+	class="..qreature_views.QreatureAbouted"
+	layer="qreature.skin.interfaces.IQreatureSkin"
+	view=".user_quiz.UserQuiz"
+/>
+
+<page
+  for="qreature.interfaces.IQuizResult"
+  name="other_result.html"
+  class=".result.OtherResult"
+  permission="zope.View"
+  layer="qreature.skin.interfaces.IQreatureSkin"
+/>
+
+<page 
+	for="qreature.interfaces.IQuiz"
+	name="paidQuiz"
+	permission="zope.View"
+	class=".paid.Paid"
+/>
+
+
+<!-- Paid pages -->
+<page
+	for="qreature.browser.user_quiz.interfaces.ISinglePage"
+	name="go.html"
+	class=".single_page.SinglePageQuizForm"
+	permission="zope.View"
+  	layer="qreature.skin.interfaces.IPaidSkin"
+/>
+
+<page
+  for="qreature.browser.user_quiz.interfaces.IMultiPage"
+  name="go.html"
+  class=".multi_page.MultiPageQuizForm"
+  permission="zope.View"
+  layer="qreature.skin.interfaces.IPaidSkin"
+/>
+
+<page
+  for="qreature.browser.user_quiz.interfaces.IGroupPage"
+  name="go.html"
+  class=".group_page.GroupPageQuizForm"
+  permission="zope.View"
+  layer="qreature.skin.interfaces.IPaidSkin"
+/>
+
+<page
+	name="result.html"
+	for="qreature.interfaces.IQuiz"
+	class=".result.Result"
+	permission="zope.View"
+	layer="qreature.skin.interfaces.IPaidSkin"
+/>
+
+<zope:adapter
+  factory=".widgets.paidQuestionWidget"
+  provides="z3c.form.interfaces.IFieldWidget"
+/>
+
+<zope:adapter
+  factory=".widgets.paidAnswerWidget"
+  provides="z3c.form.interfaces.IFieldWidget"
+/>
+
+<zope:adapter
+  factory=".widgets.paidPreviousAnswersWidget"
+  provides="z3c.form.interfaces.IFieldWidget"
+/>
+
+<z3c:widgetTemplate
+	mode="input"
+	template="./templates/paid_answer_widget.pt"
+	widget=".widgets.AnswerWidget"
+	layer="qreature.skin.interfaces.IPaidSkin"
+/>
+<z3c:widgetTemplate
+	mode="display"
+	template="./templates/paid_question_widget.pt"
+	widget=".widgets.QuestionWidget"
+	layer="qreature.skin.interfaces.IPaidSkin"
+/>
+<z3c:widgetTemplate
+	mode="input"
+	template="./templates/paid_previous_answers_widget.pt"
+	widget=".widgets.PreviousAnswersWidget"
+	layer="qreature.skin.interfaces.IPaidSkin"
+/>
+
+<!--Paid pages -->
+
+</configure>

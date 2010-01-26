@@ -1,0 +1,24 @@
+<h1>Автор</h1>
+<div>
+	<img border="0" src="user.jpg" tal:attributes="src view/user"/>
+	<a href="author.html" tal:attributes="href view/folder/url">
+		<strong class="QreatureButtonTitle"  tal:content="view/folder/login">Login</strong>
+	</a>
+</div>
+
+<div>
+	<div tal:content="view/folder/about">About here</div>
+</div>
+<p></p>
+<div tal:condition="view/other_quizes">
+	Другие тесты этого автора:
+	<tal:block repeat="quiz view/gimmeQuizes">
+		<div>
+			<a href="quiz.html" tal:attributes="href quiz/url">
+				<img border="0" src="icon.jpg" tal:attributes="src view/icon"/>
+				<strong tal:content="quiz/title">Title here</strong>
+			</a>
+		</div>
+	</tal:block>
+
+</div>

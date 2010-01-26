@@ -1,0 +1,253 @@
+<configure
+xmlns="http://namespaces.zope.org/zope"
+xmlns:browser="http://namespaces.zope.org/browser">
+	
+  <interface
+    interface=".interfaces.IQreatureSkin"
+    type="zope.publisher.interfaces.browser.IBrowserSkinType"
+    name="Qreature"
+  />
+  
+  <browser:view
+      for="*"
+      name="qreature_macros"
+      class=".standardmacros.QreatureMacros"
+      permission="zope.View"
+      layer=".interfaces.IQreatureSkin"
+  />
+  
+  <browser:view
+      for="*"
+      name="standard_macros"
+      class=".standardmacros.StandardQreatureMacros"
+      permission="zope.View"
+      allowed_interface="zope.interface.common.mapping.IItemMapping"
+      layer=".interfaces.IQreatureSkin"    
+  />
+  
+  <!-- Resources-->
+<browser:resourceDirectory
+    name="qreature_src"
+    directory="qreature_src"
+/>
+
+<!-- Pictures -->
+
+<browser:resource
+	name="qreature_icon.jpg"
+	image="./qreature_src/qreature_icon.jpg"	
+/>
+<browser:resource
+	name="qreature_icon.png"
+	image="./qreature_src/qreature_icon.png"	
+/>
+
+<browser:resource
+	name="add.jpg"
+	image="./qreature_src/add.jpg"	
+/>
+
+<browser:resource
+	name="publish.jpg"
+	image="./qreature_src/publish.jpg"	
+/>
+<browser:resource
+	name="publish_button.jpg"
+	image="./qreature_src/publish_button.jpg"	
+/>
+<browser:resource
+	name="scale.jpg"
+	image="./qreature_src/scale.jpg"	
+/>
+
+<browser:resource
+	name="slots.jpg"
+	image="./qreature_src/slots.jpg"	
+/>
+
+<browser:resource
+	name="scale_button.jpg"
+	image="./qreature_src/scale_button.jpg"	
+/>
+
+<browser:resource
+	name="user.jpg"
+	image="./qreature_src/user.jpg"	
+/>
+
+<browser:resource
+	name="back.jpg"
+	image="./qreature_src/back.jpg"	
+/>
+
+<browser:resource
+	name="slots_button.jpg"
+	image="./qreature_src/slots_button.jpg"	
+/>
+
+<browser:resource
+	name="lead_button.jpg"
+	image="./qreature_src/lead_button.jpg"	
+/>
+<browser:resource
+	name="check_button.jpg"
+	image="./qreature_src/check_button.jpg"	
+/>
+<browser:resource
+	name="check.jpg"
+	image="./qreature_src/check.jpg"	
+/>
+<browser:resource
+	name="preview_button.jpg"
+	image="./qreature_src/preview_button.jpg"	
+/>
+
+<browser:resource
+	name="delete.jpg"
+	image="./qreature_src/delete.jpg"	
+/>
+<browser:resource
+	name="edit.jpg"
+	image="qreature_src/edit.jpg"	
+/>
+<browser:resource
+	name="preview.jpg"
+	image="qreature_src/preview.jpg"	
+/>
+<browser:resource
+	name="apply.jpg"
+	image="qreature_src/apply.jpg"	
+/>
+
+<browser:resource
+	name="question.jpg"
+	image="./qreature_src/question.jpg"	
+/>
+
+<browser:resource
+	name="answer.jpg"
+	image="./qreature_src/answer.jpg"	
+/>
+
+<browser:resource
+	name="value.jpg"
+	image="qreature_src/value.jpg"	
+/>
+
+<browser:resource
+	name="depends.jpg"
+	image="qreature_src/depends.jpg"	
+/>
+
+<browser:resource
+	name="lead.jpg"
+	image="qreature_src/lead.jpg"	
+/>
+
+<browser:resource
+	name="proceed.jpg"
+	image="qreature_src/proceed.jpg"	
+/>
+<!--Pictures -->
+
+<browser:resource
+	name="text_button_questions.jpg"
+	image="qreature_src/text_button_questions.jpg"	
+/>
+<browser:resource
+	name="text_button_answers.jpg"
+	image="qreature_src/text_button_answers.jpg"	
+/>
+<browser:resource
+	name="before_switch_off.jpg"
+	image="qreature_src/before_switch_off.jpg"	
+/>
+<browser:resource
+	name="clean_cache.jpg"
+	image="qreature_src/clean_cache.jpg"	
+/>
+<browser:resource
+	name="rss.jpg"
+	image="qreature_src/rss.jpg"	
+/>
+<browser:resource
+	name="flash_apply.jpg"
+	image="qreature_src/flash_apply.jpg"	
+/>
+<browser:resource
+	name="flash_edit.jpg"
+	image="qreature_src/flash_edit.jpg"	
+/>
+
+<!-- Traverser -->
+<subscriber
+	factory=".adapters.QreatureTraverser"
+	provides="multi_traverser.interfaces.IMultiTraverserClient"
+	permission="zope.View"
+/>
+<subscriber
+	factory=".adapters.QuizTraverser"
+	provides="multi_traverser.interfaces.IMultiTraverserClient"
+	permission="qreature.edit_quiz"
+/>
+
+
+<!-- Content Providers-->
+<browser:viewletManager
+  name="qreature.MenuVM"
+  provides=".interfaces.IQreatureMenuVM"
+  permission="zope.View"
+  class=".viewlet_managers.QreatureMenuVM"
+/>
+<browser:viewletManager
+  name="qreature.LeftSideBarVM"
+  provides=".interfaces.IQreatureLeftSideBarVM"
+  permission="zope.View"
+  class=".viewlet_managers.QreatureLeftSideBarVM"
+/>
+<browser:viewletManager
+  name="qreature.RightSideBarVM"
+  provides=".interfaces.IQreatureRightSideBarVM"
+  permission="zope.View"
+  class=".viewlet_managers.QreatureRightSideBarVM"
+/>
+<!-- Content Providers-->
+
+<browser:viewlet
+	name="10Advert"
+	for="*"
+	manager=".interfaces.IQreatureRightSideBarVM"
+	class=".advert.Advert"
+	permission="zope.View"
+	layer=".interfaces.IAdvertLayer"
+/>
+
+
+<interface
+	interface=".interfaces.IPaidSkin"
+	type="zope.publisher.interfaces.browser.IBrowserSkinType"
+	name="Paid"
+/>
+
+  <browser:view
+      for="*"
+      name="paid_macros"
+      class=".standardmacros.PaidMacros"
+      permission="zope.View"
+      layer=".interfaces.IPaidSkin"
+  />
+  
+  <browser:view
+      for="*"
+      name="standard_macros"
+      class=".standardmacros.StandardPaidMacros"
+      permission="zope.View"
+      allowed_interface="zope.interface.common.mapping.IItemMapping"
+      layer=".interfaces.IPaidSkin"    
+  />
+
+<resourceLibrary name="skin">
+	<directory source="../skin" include="skin.js"/>
+</resourceLibrary>
+
+</configure>

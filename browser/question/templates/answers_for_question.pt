@@ -1,0 +1,12 @@
+<div class="QuizAnswers" tal:condition="not:view/nothing">
+	<h3>Варианты ответов</h3>
+	<tal:block repeat="answer view/gimmeViewlets">
+		<div tal:replace="structure answer/render"/>
+	</tal:block>
+</div>
+<tal:block condition="view/nothing">
+	<em>не создано ни одного ответа</em>
+</tal:block>
+<tal:providers replace="structure provider:qreature.QreatureButtonsMenuVM"/>
+
+

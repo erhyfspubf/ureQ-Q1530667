@@ -1,0 +1,9 @@
+post this code to Your Blog, or site:
+<form action="." tal:attributes="action request/URL">
+  <div class="row" tal:repeat="widget view/widgets/values">
+    <input type="text" tal:replace="structure widget/render"/>
+  	</div>
+  	<div class="action" tal:repeat="action view/actions/values">
+    	<input type="submit" tal:replace="structure action/render"/>
+	</div>
+</form>
