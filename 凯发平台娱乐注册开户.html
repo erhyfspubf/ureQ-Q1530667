@@ -81,7 +81,7 @@ class QuizAsXMLTestCase(unittest.TestCase):
         if status is not None:
             print status
             return
-        self.assertEqual(quiz.title,u'Название теста. Вот как.')
+        self.assertEqual(quiz.title,u'ГЌГ Г§ГўГ Г­ГЁГҐ ГІГҐГ±ГІГ . Г‚Г®ГІ ГЄГ ГЄ.')
         self.assertEqual(quiz.body,u'Contents of quiz')
         
         self.assertEqual(IAnnotations(quiz).get(PAGES_KEY), 1)
