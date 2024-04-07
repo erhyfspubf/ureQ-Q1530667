@@ -21,9 +21,9 @@ check_login = re.compile(login_regex).match
 
 class IQreatureFolder(IContainer, IPossibleSite):
     containers('qreature.interfaces.IQreatureSite')
-    login = TextLine(title=u'Логин', constraint=check_login,required=True)
-    password = Password(title=u'Пароль',required=True)
-    confirm_password = Password(title=u'Пароль еще раз',required=True)
+    login = TextLine(title=u'Г‹Г®ГЈГЁГ­', constraint=check_login,required=True)
+    password = Password(title=u'ГЏГ Г°Г®Г«Гј',required=True)
+    confirm_password = Password(title=u'ГЏГ Г°Г®Г«Гј ГҐГ№ГҐ Г°Г Г§',required=True)
     email = TextLine(title=u'email', constraint=check_email, required=True)
     @invariant
     def passwordMatching(quiz_folder):
@@ -35,8 +35,8 @@ class IQreatureFolder(IContainer, IPossibleSite):
         site = getSite()
         if site.has_key(quiz_folder.login):
             raise Invalid("Login exists!")
-    url = URI(title=u'URL блога или сайта', default = "http://www.qreature.ru")
-    about = Text(title=u'Информация о себе', default = u'',required=False)
+    url = URI(title=u'URL ГЎГ«Г®ГЈГ  ГЁГ«ГЁ Г±Г Г©ГІГ ', default = "http://www.qreature.ru")
+    about = Text(title=u'Г€Г­ГґГ®Г°Г¬Г Г¶ГЁГї Г® Г±ГҐГЎГҐ', default = u'',required=False)
     
 
     def setSiteManager(self):
@@ -50,8 +50,8 @@ class QreatureEditableTextArea(Text):
     implements(IQreatureEditableTextArea)
 
 class IQuizContainer(IContainer):
-    title = TextLine(title=u'Название', required=True)
-    body = QreatureEditableTextArea(title=u'Содержание', default=u'', required=True)
+    title = TextLine(title=u'ГЌГ Г§ГўГ Г­ГЁГҐ', required=True)
+    body = QreatureEditableTextArea(title=u'Г‘Г®Г¤ГҐГ°Г¦Г Г­ГЁГҐ', default=u'', required=True)
 
 class IQuiz(IQuizContainer,IPossibleSite):
     containers('qreature.interfaces.IQreatureFolder')
@@ -68,13 +68,13 @@ class IQuizAnswer(IQuizContainer):
     
 class IAnswerDepends(IContained):
     containers('qreature.interfaces.IQuizAnswer')
-    result_id = Choice(title=u'Влияние',vocabulary="Quiz Results")
+    result_id = Choice(title=u'Г‚Г«ГЁГїГ­ГЁГҐ',vocabulary="Quiz Results")
     depend_value = Choice(vocabulary="Percentage")
     
 
 class IAnswerLeads(IContained):
     containers('qreature.interfaces.IQuizAnswer')
-    question_id = Choice(title=u'Перемещение',vocabulary="Quiz Leads")
+    question_id = Choice(title=u'ГЏГҐГ°ГҐГ¬ГҐГ№ГҐГ­ГЁГҐ',vocabulary="Quiz Leads")
 
 class INewQreatureFolderEvent(Interface):
     """ """
@@ -96,7 +96,7 @@ def check_value(value):
     
     
 class IAnswerValue(Interface):
-    value = TextLine(title=u'Баллы',constraint=check_value)
+    value = TextLine(title=u'ГЃГ Г«Г«Г»',constraint=check_value)
 
 
 class IScaleQuiz(Interface):
@@ -109,17 +109,17 @@ class IQreatureAvatar(IImage):
     """ """
 
 class IQreaturePrincipalInfo(Interface):
-    uri = Id(title=u'веб адресс', required=False)
-    about = Text(title=u'о себе', required=False)
-    avatar = Object(title=u'аватар', schema=IQreatureAvatar)
+    uri = Id(title=u'ГўГҐГЎ Г Г¤Г°ГҐГ±Г±', required=False)
+    about = Text(title=u'Г® Г±ГҐГЎГҐ', required=False)
+    avatar = Object(title=u'Г ГўГ ГІГ Г°', schema=IQreatureAvatar)
     
 class IQreatureNews(IContainer):
     title = TextLine(title=u'news title',required=True)
     body = Text(title = u'news body',required=True)
     
 class IQreatureComment(IContainer):
-    title = TextLine(title=u'автор',required=True)
-    body = Text(title=u'комментарий',required=True)
+    title = TextLine(title=u'Г ГўГІГ®Г°',required=True)
+    body = Text(title=u'ГЄГ®Г¬Г¬ГҐГ­ГІГ Г°ГЁГ©',required=True)
     
 
 class ILeadedQuiz(Interface):
@@ -159,7 +159,7 @@ class IQreatureTaggable(Interface):
         Hope i could simply inherit it from lovely.tag.tagging.Tagging and overwrite some methods"""
         
 class IQuizAsXML(Interface):
-    download = TextLine(title=u'скачать тест в виде xml',required=False)
+    download = TextLine(title=u'Г±ГЄГ Г·Г ГІГј ГІГҐГ±ГІ Гў ГўГЁГ¤ГҐ xml',required=False)
     upload = Bytes(required=False)
     def generateXML(quiz):
         """ """
